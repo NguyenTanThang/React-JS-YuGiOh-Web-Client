@@ -1,0 +1,1 @@
+export const MAIN_PROXY_URL = "http://localhost:5000";

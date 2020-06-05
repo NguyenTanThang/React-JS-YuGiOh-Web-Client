@@ -13,7 +13,6 @@ import {
 } from "../../fetchers/categoryFetchers";
 import {connect} from "react-redux";
 import CardItem from "./CardItem";
-import AssignMonsterToCategory from "./AssignMonsterToCategory";
 import {Container, Form, Input, Button, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 import {Link} from "react-router-dom";
 import Pagination from "../Partials/Pagination";
@@ -297,7 +296,7 @@ class CardList extends Component {
         currentCards = currentCards.slice(pageObject.startIndex, pageObject.endIndex + 1);
 
         currentCards = currentCards.map(cardItem => {
-            return <CardItem cardItem={cardItem} key={cardItem._id}/>
+            return <CardItem isAll={true} cardItem={cardItem} key={cardItem._id}/>
         })
 
         return (
@@ -306,7 +305,6 @@ class CardList extends Component {
                     <Link to="/add-monster-card" className="btn btn-dark">
                         Add Monster Card
                     </Link>
-                    <AssignMonsterToCategory/>
                     <MonsterCardSearchEngine onSearch={onSearch}/>
                     <FormGroup>
                         <select defaultValue={aphabeticalOrder} id="aphabeticalOrder" name="aphabeticalOrder" required value={aphabeticalOrder} onChange={onChange} className="custom-select">

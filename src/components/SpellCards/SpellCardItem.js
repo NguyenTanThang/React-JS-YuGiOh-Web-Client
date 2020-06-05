@@ -6,8 +6,11 @@ import {connect} from "react-redux";
 import {
     getSpellCategoryByID
 } from "../../fetchers/categoryFetchers";
+import EditSpellCard from "./EditSpellCard";
+import AssignSpellCardToDeck from "./AssignSpellCardToDeck";
+import DeleteSpellCard from "./DeleteSpellCard";
 
-class CardItem extends Component {
+class SpellCardItem extends Component {
 
     state = {
         category: {}
@@ -22,12 +25,29 @@ class CardItem extends Component {
         })
     }
 
+    displayIndividualUtilsBox = () => {
+        const {isAll, cardItem} = this.props;
+        if (isAll){
+            return (
+                <div className="item-utils-box">
+                    <AssignSpellCardToDeck cardItem={cardItem}/>
+                    <EditSpellCard cardItem={cardItem}/>
+                    <DeleteSpellCard cardItem={cardItem}/>
+                </div>
+            )
+        } else {
+            return (<></>)
+        }
+    }
+
     render() {
         const {name, description, imageURL, categoryID, _id} = this.props.cardItem;
         const {category} = this.state;
+        const {displayIndividualUtilsBox} = this;
 
         return (
             <div className="card-item group-list-item spell">
+                {displayIndividualUtilsBox()}
                 <img className="img-fluid" alt={name} src={imageURL}/>
                 <div className="card-desc">
                     <h4>{name}</h4>
@@ -56,4 +76,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardItem);
+export default connect(mapStateToProps, mapDispatchToProps)(SpellCardItem);

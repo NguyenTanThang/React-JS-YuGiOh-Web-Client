@@ -188,7 +188,7 @@ class CardList extends Component {
         currentCards = currentCards.slice(pageObject.startIndex, pageObject.endIndex + 1);
 
         currentCards = currentCards.map(cardItem => {
-            return <SpellCardItem cardItem={cardItem} key={cardItem._id}/>
+            return <SpellCardItem isAll={true} cardItem={cardItem} key={cardItem._id}/>
         })
 
         return (

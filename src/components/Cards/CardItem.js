@@ -12,6 +12,10 @@ import {
 import {
     getCategoryByID
 } from "../../fetchers/categoryFetchers";
+import AssignMonsterCardToDeck from "./AssignMonsterCardToDeck";
+import EditCard from "./EditCard";
+import DeleteCard from "./DeleteCard";
+import AssignMonsterToCategory from "./AssignMonsterToCategory";
 
 class CardItem extends Component {
 
@@ -55,13 +59,30 @@ class CardItem extends Component {
         return cardCategories
     }
 
+    displayIndividualUtilsBox = () => {
+        const {isAll, cardItem} = this.props;
+        if (isAll){
+            return (
+                <div className="item-utils-box">
+                    <AssignMonsterCardToDeck cardItem={this.props.cardItem}/>
+                    <EditCard cardItem={cardItem}/>
+                    <DeleteCard cardItem={cardItem}/>
+                    <AssignMonsterToCategory cardItem={cardItem} />
+                </div>
+            )
+        } else {
+            return (<></>)
+        }
+    }
+
     render() {
         const {name, typeID, attributeID, description, levels, atk, def, imageURL, categoryIDs, _id} = this.props.cardItem;
         const {type, attribute} = this.state;
-        const {displayCardCategories} = this;
+        const {displayCardCategories, displayIndividualUtilsBox} = this;
 
         return (
             <div className="card-item group-list-item">
+                {displayIndividualUtilsBox()}
                 <img className="img-fluid" alt={name} src={imageURL}/>
                 <div className="card-desc">
                     <h4>{name}</h4>

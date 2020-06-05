@@ -138,7 +138,8 @@ class CardList extends Component {
 
     state = {
         currentPage: 1,
-        searchObject: {}
+        searchObject: {},
+        displayAphabeticalOrder: "A - Z"
     }
 
     componentDidMount() {
@@ -187,7 +188,7 @@ class CardList extends Component {
         currentCards = currentCards.slice(pageObject.startIndex, pageObject.endIndex + 1);
 
         currentCards = currentCards.map(cardItem => {
-            return <TrapCardItem cardItem={cardItem} key={cardItem._id}/>
+            return <TrapCardItem isAll={true} cardItem={cardItem} key={cardItem._id}/>
         })
 
         return (

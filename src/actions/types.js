@@ -4,6 +4,10 @@ export const GET_ALL_ATTRIBUTES = "GET_ALL_ATTRIBUTES";
 
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 
+export const SIGNUP = "SIGNUP";
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
+
 export const GET_ALL_CARDS = "GET_ALL_CARDS";
 export const GET_CARD_BY_ID = "GET_CARD_BY_ID";
 export const ADD_CARD = "ADD_CARD";
@@ -22,3 +26,13 @@ export const GET_TRAP_CARD_BY_ID = "GET_TRAP_CARD_BY_ID";
 export const ADD_TRAP_CARD = "ADD_TRAP_CARD";
 export const EDIT_TRAP_CARD = "EDIT_TRAP_CARD";
 export const DELETE_TRAP_CARD = "DELETE_TRAP_CARD";
+
+export const GET_ALL_DECKS = "GET_ALL_DECKS";
+export const GET_DECKS_BY_USER_ID = "GET_DECKS_BY_USER_ID";
+export const GET_DECK_BY_ID = "GET_DECK_BY_ID";
+export const ADD_DECK = "ADD_DECK";
+export const ASSIGN_MONSTER_CARD_TO_DECK = "ASSIGN_MONSTER_CARD_TO_DECK";
+export const ASSIGN_SPELL_CARD_TO_DECK = "ASSIGN_SPELL_CARD_TO_DECK";
+export const ASSIGN_TRAP_CARD_TO_DECK = "ASSIGN_TRAP_CARD_TO_DECK";
+export const EDIT_DECK = "EDIT_DECK";
+export const DELETE_DECK = "DELETE_DECK";

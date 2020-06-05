@@ -14,9 +14,9 @@ export const getAllCards = () => {
     return async (dispatch) => {
         try {
             const res = await axios.get(`${MAIN_PROXY_URL}/cards`);
-    
+
             const cards = res.data.data;
-    
+
             return dispatch({
                 type: GET_ALL_CARDS,
                 payload: {
@@ -24,7 +24,7 @@ export const getAllCards = () => {
                 }
             })
         } catch (error) {
-            
+
         }
     }
 }
@@ -32,13 +32,88 @@ export const getAllCards = () => {
 export const addCard = (newCard) => {
     return async (dispatch) => {
         try {
-            const {name, type, attribute, description, levels, atk, def, imageURL} = newCard;
-            const res = await axios.post(`${MAIN_PROXY_URL}/cards/add`, {name, typeID: type, attributeID: attribute, description, levels, atk, def, imageURL});
-    
+            const {
+                name,
+                type,
+                attribute,
+                description,
+                levels,
+                atk,
+                def,
+                imageURL
+            } = newCard;
+            const res = await axios.post(`${MAIN_PROXY_URL}/cards/add`, {
+                name,
+                typeID: type,
+                attributeID: attribute,
+                description,
+                levels,
+                atk,
+                def,
+                imageURL
+            });
+
             const card = res.data.data;
-    
+
             return dispatch({
                 type: ADD_CARD,
+                payload: {
+                    card
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export const deleteCard = (cardID) => {
+    return async (dispatch) => {
+        try {
+            const res = await axios.delete(`${MAIN_PROXY_URL}/cards/delete/${cardID}`);
+
+            const card = res.data.data;
+
+            return dispatch({
+                type: DELETE_CARD,
+                payload: {
+                    card
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export const editCard = (cardID, updatedCard) => {
+    return async (dispatch) => {
+        try {
+            const {
+                name,
+                type,
+                attribute,
+                description,
+                levels,
+                atk,
+                def,
+                imageURL
+            } = updatedCard;
+            const res = await axios.put(`${MAIN_PROXY_URL}/cards/edit/${cardID}`, {
+                name,
+                typeID: type,
+                attributeID: attribute,
+                description,
+                levels,
+                atk,
+                def,
+                imageURL
+            });
+
+            const card = res.data.data;
+
+            return dispatch({
+                type: EDIT_CARD,
                 payload: {
                     card
                 }
@@ -52,21 +127,23 @@ export const addCard = (newCard) => {
 export const assignMonsterToCategory = (cardID, categoryID) => {
     return async (dispatch) => {
         try {
-            let res = await axios.put(`${MAIN_PROXY_URL}/cards/assign-monster-to-category/${cardID}`, {categoryID});
-    
+            let res = await axios.put(`${MAIN_PROXY_URL}/cards/assign-monster-to-category/${cardID}`, {
+                categoryID
+            });
+
             const card = res.data.data;
 
             res = await axios.get(`${MAIN_PROXY_URL}/cards`);
-    
+
             const cards = res.data.data;
-    
+
             dispatch({
                 type: GET_ALL_CARDS,
                 payload: {
                     cards
                 }
             })
-    
+
             return dispatch({
                 type: ASSIGN_MONSTER_TO_CATEGORY,
                 payload: {

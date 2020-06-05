@@ -7,6 +7,24 @@ body {
   padding-bottom: 50px;
 }
 
+.item-utils-box {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 20px;
+  display: flex;
+}
+
+.item-utils-box > *{
+  margin-left: 10px;
+}
+
+.deck-tabs {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 20px;
+}
+
 .utils {
   margin-bottom: 50px;
   display: flex;
@@ -14,6 +32,10 @@ body {
   background-color: #fff;
   border-radius: 20px;
   align-items: center;
+}
+
+.details-col-title h4 {
+  font-size: 1rem;
 }
 
 .utils select {
@@ -25,6 +47,7 @@ body {
 }
 
 .card-item {
+  position: relative;
   display: flex;
   padding: 20px;
   border-radius: 20px;
@@ -87,6 +110,16 @@ body {
 }
 
 @media (min-width: 320px) and (max-width: 1024px){
+  .item-utils-box {
+    position: static;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .item-utils-box i {
+    font-size: 2rem;
+  }
+
   .container {
     max-width: 600px;
   }

@@ -69,6 +69,16 @@ class AddCard extends Component {
         console.log(this.state);
         const {name, type, attribute, description, levels, atk, def, imageURL} = this.state;
         this.props.addCard({name, type, attribute, description, levels, atk, def, imageURL})
+        this.setState({
+            name: "", 
+            type: "", 
+            attribute: "", 
+            description: "", 
+            levels: 0, 
+            atk: 0, 
+            def: 0, 
+            imageURL: "",
+        })
     }
 
     render() {
@@ -118,7 +128,7 @@ class AddCard extends Component {
                     <FormGroup className="row">
                         <div className="col-lg-6 col-md-12 col-sm-12">
                             <Label htmlFor="levels">Levels:</Label>
-                            <Input id="levels" name="levels" required placeholder="Levels" value={levels} onChange={onChange}/>
+                            <Input id="levels" name="levels" required placeholder="Levels" value={levels} type="number" onChange={onChange}/>
                         </div>
 
                         <div className="col-lg-6 col-md-12 col-sm-12">

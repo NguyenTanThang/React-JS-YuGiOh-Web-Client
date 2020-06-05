@@ -8,6 +8,43 @@ const Navigator = (props) => {
 
   const toggleNavbar = () => setCollapsed(!collapsed);
 
+  const closeTheNav = () => {
+    setCollapsed(true);
+  }
+
+  const displayNavItems = () => {
+    const userID = localStorage.getItem("userID");
+    if (userID) {
+      return (
+        <>
+          <NavItem>
+            <Link className="nav-link" to="/profile" onClick={e => {
+              closeTheNav()
+            }}>Profile</Link>
+            <Link className="nav-link text-danger" to="/users/logout" onClick={e => {
+              closeTheNav()
+            }}>Logout</Link>
+          </NavItem>
+        </>
+      )
+    } else {
+      return (
+        <>
+          <NavItem>
+              <Link className="nav-link" to="/users/login" onClick={e => {
+                closeTheNav()
+              }}>Login</Link>
+            </NavItem>
+            <NavItem>
+              <Link className="nav-link" to="/users/signup" onClick={e => {
+                closeTheNav()
+              }}>Sign Up</Link>
+            </NavItem>
+        </>
+      )
+    }
+  }
+
   return (
     <div>
       <Navbar color="dark" dark>
@@ -17,16 +54,25 @@ const Navigator = (props) => {
         <Collapse isOpen={!collapsed} navbar>
           <Nav navbar>
             <NavItem>
-              <Link className="nav-link" to="/">Monster Cards</Link>
+              <Link className="nav-link" to="/" onClick={e => {
+                closeTheNav()
+              }}>Monster Cards</Link>
             </NavItem>
             <NavItem>
-              <Link className="nav-link" to="/spell-cards">Spell Cards</Link>
+              <Link className="nav-link" to="/spell-cards" onClick={e => {
+                closeTheNav()
+              }}>Spell Cards</Link>
             </NavItem>
             <NavItem>
-              <Link className="nav-link" to="/trap-cards">Trap Cards</Link>
+              <Link className="nav-link" to="/trap-cards" onClick={e => {
+                closeTheNav()
+              }}>Trap Cards</Link>
             </NavItem>
+            {displayNavItems()}
             <NavItem>
-              <NavLink target="_blank" href="https://github.com/NguyenTanThang/React-JS-YuGiOh-Web-Client">GitHub</NavLink>
+              <NavLink target="_blank" href="https://github.com/NguyenTanThang/React-JS-YuGiOh-Web-Client" onClick={e => {
+                closeTheNav()
+              }}>GitHub</NavLink>
             </NavItem>
           </Nav>
         </Collapse>

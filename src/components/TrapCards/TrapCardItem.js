@@ -6,6 +6,9 @@ import {connect} from "react-redux";
 import {
     getTrapCategoryByID
 } from "../../fetchers/categoryFetchers";
+import EditTrapCard from "./EditTrapCard";
+import AssignTrapCardToDeck from "./AssignTrapCardToDeck";
+import DeleteTrapCard from "./DeleteTrapCard";
 
 class CardItem extends Component {
 
@@ -22,12 +25,29 @@ class CardItem extends Component {
         })
     }
 
+    displayIndividualUtilsBox = () => {
+        const {isAll, cardItem} = this.props;
+        if (isAll){
+            return (
+                <div className="item-utils-box">
+                    <AssignTrapCardToDeck cardItem={cardItem}/>
+                    <EditTrapCard cardItem={cardItem}/>
+                    <DeleteTrapCard cardItem={cardItem}/>
+                </div>
+            )
+        } else {
+            return (<></>)
+        }
+    }
+
     render() {
         const {name, description, imageURL, categoryID, _id} = this.props.cardItem;
         const {category} = this.state;
+        const {displayIndividualUtilsBox} = this;
 
         return (
             <div className="card-item group-list-item trap">
+                {displayIndividualUtilsBox()}
                 <img className="img-fluid" alt={name} src={imageURL}/>
                 <div className="card-desc">
                     <h4>{name}</h4>

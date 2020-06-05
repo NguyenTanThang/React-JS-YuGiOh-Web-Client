@@ -4,29 +4,26 @@ import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label } from 'reactstrap';
 import {connect} from "react-redux";
 import {
-    getAllCards,
-    assignMonsterToCategory
-} from "../../actions/cardActions";
+    getAllCards
+} from "../../actions/cardActions"; 
 import {
-    getAllCategories
-} from "../../fetchers/categoryFetchers";
+    getDecksByUserID,
+    assignMonsterCardToDeck
+} from "../../actions/deckActions"
 
-class AssignMonsterToCategory extends Component {
+class AssignMonsterToDeck extends Component {
   
     state = {
         modal: false,
         cardID: "",
-        categoryID: "",
-        categoryList: []
+        deckID: ""
     }
 
     async componentDidMount(){
         this.props.getAllCards();
-        const {cardItem} = this.props;
-        const categoryList = await getAllCategories();
+        this.props.getDecksByUserID();
         this.setState({
-            cardID: cardItem._id,
-            categoryList
+            cardID: this.props.cardItem._id
         })
     }
 
@@ -44,12 +41,11 @@ class AssignMonsterToCategory extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const {cardID, categoryID} = this.state;
-        this.props.assignMonsterToCategory(cardID, categoryID);
+        const {cardID, deckID} = this.state;
+        this.props.assignMonsterCardToDeck(cardID, deckID);
         this.setState({
             modal: false,
-            cardID: "",
-            categoryID: "",
+            deckID: "",
         })
     }
 
@@ -65,30 +61,13 @@ class AssignMonsterToCategory extends Component {
     })
   }
 
-  displayCategoryOptions = () => {
-    let categoryList = this.state.categoryList;
-    const cards = this.props.cards;
-    const cardID = this.state.cardID;
-
-    if (cardID) {
-        const card = cards.filter(cardItem => {
-            return cardItem._id === cardID;
-        })[0];
-        return categoryList.filter(categoryItem => {
-            return !card.categoryIDs.includes(categoryItem._id);
-        }).map(categoryItem => {
-                return (
-                    <option key={categoryItem._id} value={categoryItem._id}>
-                        {categoryItem.name}
-                    </option>
-                )
-        })
-    }
-
-    return categoryList.map(categoryItem => {
+  displayDeckOptions = () => {
+    const decks = this.props.userDecks;
+    
+    return decks.map(cardItem => {
         return (
-            <option key={categoryItem._id} value={categoryItem._id}>
-                {categoryItem.name}
+            <option key={cardItem._id} value={cardItem._id}>
+                {cardItem.name}
             </option>
         )
     })
@@ -98,16 +77,16 @@ render(){
     const {
         className
       } = this.props;
-      const {toggle, displayCardOptions, displayCategoryOptions, onChange, onSubmit} = this;
-      const {modal, cardID, categoryID} = this.state;
+      const {toggle, displayCardOptions, displayDeckOptions, onChange, onSubmit} = this;
+      const {modal, cardID, deckID} = this.state;
 
       return (
         <div>
           <Button color="dark" onClick={toggle}>
-            <i className="fas fa-th-large"></i>
+            <i className="fas fa-plus"></i>
           </Button>
           <Modal isOpen={modal} toggle={toggle} className={className}>
-            <ModalHeader toggle={toggle}>Assign Monster To Category</ModalHeader>
+            <ModalHeader toggle={toggle}>Assign Monster To Deck</ModalHeader>
             <ModalBody>
               <Form onSubmit={onSubmit}>
     
@@ -120,10 +99,10 @@ render(){
                 </FormGroup>
 
                 <FormGroup>
-                    <Label htmlFor="categoryID">Category:</Label>
-                    <select defaultValue={categoryID} id="categoryID" name="categoryID" required value={categoryID} onChange={onChange} className="custom-select">
-                        <option value={""} disabled>--Category--</option>
-                        {displayCategoryOptions()}
+                    <Label htmlFor="deckID">Deck:</Label>
+                    <select defaultValue={deckID} id="deckID" name="deckID" required value={deckID} onChange={onChange} className="custom-select">
+                        <option value={""} disabled>--Deck--</option>
+                        {displayDeckOptions()}
                     </select>
                 </FormGroup>
 
@@ -145,7 +124,8 @@ render(){
 
 const mapStateToProps = (state) => {
     return {
-        cards: state.cardReducer.cards
+        cards: state.cardReducer.cards,
+        userDecks: state.deckReducer.userDecks,
     }
 }
 
@@ -154,10 +134,13 @@ const mapDispatchToProps = (dispatch) => {
         getAllCards: () => {
             dispatch(getAllCards())
         },
-        assignMonsterToCategory: (cardID, categoryID) => {
-            dispatch(assignMonsterToCategory(cardID, categoryID))
-        }
+        getDecksByUserID: () => {
+            dispatch(getDecksByUserID())
+        },
+        assignMonsterCardToDeck: (cardID, deckID) => {
+            dispatch(assignMonsterCardToDeck(cardID, deckID))
+        },
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AssignMonsterToCategory);
+export default connect(mapStateToProps, mapDispatchToProps)(AssignMonsterToDeck);

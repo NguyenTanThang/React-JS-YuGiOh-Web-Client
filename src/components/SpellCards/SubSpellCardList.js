@@ -22,6 +22,7 @@ class SubSpellCardList extends Component {
         const {cards} = this.props;
         const {currentPage, aphabeticalOrder} = this.state;
         let currentCards = cards;
+        const deckID = this.props.deckID;
 
         currentCards = alphabeticalOrderSorter(currentCards, aphabeticalOrder)
 
@@ -29,8 +30,8 @@ class SubSpellCardList extends Component {
 
         currentCards = currentCards.slice(pageObject.startIndex, pageObject.endIndex + 1);
 
-        currentCards = currentCards.map(cardItem => {
-            return <SpellCardItem isAll={false} cardItem={cardItem} key={cardItem._id}/>
+        currentCards = currentCards.map((cardItem, index) => {
+            return <SpellCardItem deckID={deckID} isAll={false} cardItem={cardItem} key={index}/>
         })
 
         return (

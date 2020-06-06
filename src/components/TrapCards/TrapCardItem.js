@@ -9,6 +9,7 @@ import {
 import EditTrapCard from "./EditTrapCard";
 import AssignTrapCardToDeck from "./AssignTrapCardToDeck";
 import DeleteTrapCard from "./DeleteTrapCard";
+import RemoveTrapCardFromDeck from "./RemoveTrapCardFromDeck";
 
 class CardItem extends Component {
 
@@ -26,7 +27,7 @@ class CardItem extends Component {
     }
 
     displayIndividualUtilsBox = () => {
-        const {isAll, cardItem} = this.props;
+        const {isAll, cardItem, deckID} = this.props;
         const userID = localStorage.getItem("userID");
         if (isAll && userID){
             return (
@@ -36,7 +37,15 @@ class CardItem extends Component {
                     <DeleteTrapCard cardItem={cardItem}/>
                 </div>
             )
-        } else {
+        } 
+        else if (!isAll && userID && deckID) {
+            return (
+                <div className="item-utils-box">
+                    <RemoveTrapCardFromDeck cardItem={this.props.cardItem} deckID={deckID}/>
+                </div>
+            )
+        }
+        else {
             return (<></>)
         }
     }

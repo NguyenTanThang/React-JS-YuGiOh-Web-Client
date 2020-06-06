@@ -9,6 +9,7 @@ import {
 import EditSpellCard from "./EditSpellCard";
 import AssignSpellCardToDeck from "./AssignSpellCardToDeck";
 import DeleteSpellCard from "./DeleteSpellCard";
+import RemoveSpellCardFromDeck from "./RemoveSpellCardFromDeck";
 
 class SpellCardItem extends Component {
 
@@ -26,7 +27,7 @@ class SpellCardItem extends Component {
     }
 
     displayIndividualUtilsBox = () => {
-        const {isAll, cardItem} = this.props;
+        const {isAll, cardItem, deckID} = this.props;
         const userID = localStorage.getItem("userID");
         if (isAll && userID){
             return (
@@ -36,7 +37,15 @@ class SpellCardItem extends Component {
                     <DeleteSpellCard cardItem={cardItem}/>
                 </div>
             )
-        } else {
+        } 
+        else if (!isAll && userID && deckID) {
+            return (
+                <div className="item-utils-box">
+                    <RemoveSpellCardFromDeck cardItem={this.props.cardItem} deckID={deckID}/>
+                </div>
+            )
+        }
+        else {
             return (<></>)
         }
     }

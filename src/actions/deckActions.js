@@ -172,6 +172,44 @@ export const removeMonsterCardToDeck = (cardID, deckID) => {
     }
 }
 
+export const removeSpellCardToDeck = (cardID, deckID) => {
+    return async (dispatch) => {
+        try {
+            const res = await axios.delete(`${MAIN_PROXY_URL}/decks/spell-card/${cardID}/deck/${deckID}`);
+    
+            const deck = res.data.data;
+
+            return dispatch({
+                type: REMOVE_SPELL_CARD_OF_DECK,
+                payload: {
+                    deck
+                }
+            })
+        } catch (error) {
+
+        }
+    }
+}
+
+export const removeTrapCardToDeck = (cardID, deckID) => {
+    return async (dispatch) => {
+        try {
+            const res = await axios.delete(`${MAIN_PROXY_URL}/decks/trap-card/${cardID}/deck/${deckID}`);
+    
+            const deck = res.data.data;
+
+            return dispatch({
+                type: REMOVE_TRAP_CARD_OF_DECK,
+                payload: {
+                    deck
+                }
+            })
+        } catch (error) {
+
+        }
+    }
+}
+
 export const assignSpellCardToDeck = (cardID, deckID) => {
     return async (dispatch) => {
         try {

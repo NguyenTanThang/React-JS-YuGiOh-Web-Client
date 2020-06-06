@@ -16,11 +16,12 @@ class DeckDetails extends Component {
         const deckID = this.props.match.params.deckID
         this.props.getDeckByID(deckID);
         setTimeout(() => {
+            console.log(this.props.deck);
             const {deck, spellCards, trapCards, monsterCards} = this.props.deck;
             this.setState({
                 deck, spellCards, trapCards, monsterCards
             })
-        }, 2000)
+        }, 5000)
     }
 
     render() {

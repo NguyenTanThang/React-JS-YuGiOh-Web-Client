@@ -22,7 +22,7 @@ const DeckTabs = (props) => {
             className={classnames({ active: activeTab === '1' })}
             onClick={() => { toggle('1'); }}
           >
-            Monster Cards
+            Monsters
           </NavLink>
         </NavItem>
         <NavItem>
@@ -30,7 +30,7 @@ const DeckTabs = (props) => {
             className={classnames({ active: activeTab === '2' })}
             onClick={() => { toggle('2'); }}
           >
-            Spell Cards
+            Spells
           </NavLink>
         </NavItem>
         <NavItem>
@@ -38,7 +38,7 @@ const DeckTabs = (props) => {
             className={classnames({ active: activeTab === '3' })}
             onClick={() => { toggle('3'); }}
           >
-            Trap Cards
+            Traps
           </NavLink>
         </NavItem>
       </Nav>

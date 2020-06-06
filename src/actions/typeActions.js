@@ -6,7 +6,7 @@ import {
 } from "../config/config";
 import axios from "axios";
 
-export const getAllTypes = (dispatch) => {
+export const getAllTypes = () => {
     return async (dispatch) => {
         try {
             const res = await axios.get(`${MAIN_PROXY_URL}/types`);

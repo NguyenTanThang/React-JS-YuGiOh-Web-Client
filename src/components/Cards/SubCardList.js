@@ -39,6 +39,7 @@ class SubCardList extends Component {
         const {currentPage, aphabeticalOrder} = this.state;
         const {displayAphabeticalOrder, onChange} = this;
         let currentCards = cards;
+        const deckID = this.props.deckID;
 
         currentCards = alphabeticalOrderSorter(currentCards, aphabeticalOrder)
 
@@ -46,8 +47,8 @@ class SubCardList extends Component {
 
         currentCards = currentCards.slice(pageObject.startIndex, pageObject.endIndex + 1);
 
-        currentCards = currentCards.map(cardItem => {
-            return <CardItem isAll={false} cardItem={cardItem} key={cardItem._id}/>
+        currentCards = currentCards.map((cardItem, index) => {
+            return <CardItem deckID={deckID} isAll={false} cardItem={cardItem} key={index}/>
         })
 
         return (

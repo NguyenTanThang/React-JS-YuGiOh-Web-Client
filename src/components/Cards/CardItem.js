@@ -16,6 +16,7 @@ import AssignMonsterCardToDeck from "./AssignMonsterCardToDeck";
 import EditCard from "./EditCard";
 import DeleteCard from "./DeleteCard";
 import AssignMonsterToCategory from "./AssignMonsterToCategory";
+import RemoveCardFromDeck from "./RemoveCardFromDeck";
 
 class CardItem extends Component {
 
@@ -60,8 +61,9 @@ class CardItem extends Component {
     }
 
     displayIndividualUtilsBox = () => {
-        const {isAll, cardItem} = this.props;
-        if (isAll){
+        const {isAll, cardItem, deckID} = this.props;
+        const userID = localStorage.getItem("userID");
+        if (isAll && userID){
             return (
                 <div className="item-utils-box">
                     <AssignMonsterCardToDeck cardItem={this.props.cardItem}/>
@@ -70,7 +72,15 @@ class CardItem extends Component {
                     <AssignMonsterToCategory cardItem={cardItem} />
                 </div>
             )
-        } else {
+        } 
+        else if (!isAll && userID && deckID) {
+            return (
+                <div className="item-utils-box">
+                    <RemoveCardFromDeck cardItem={this.props.cardItem} deckID={deckID}/>
+                </div>
+            )
+        }
+        else {
             return (<></>)
         }
     }

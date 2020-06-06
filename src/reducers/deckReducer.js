@@ -4,7 +4,11 @@ import {
     EDIT_DECK,
     GET_ALL_DECKS,
     GET_DECKS_BY_USER_ID,
-    GET_DECK_BY_ID
+    GET_DECK_BY_ID,
+    ASSIGN_MONSTER_CARD_TO_DECK,
+    ASSIGN_SPELL_CARD_TO_DECK,
+    ASSIGN_TRAP_CARD_TO_DECK,
+    REMOVE_MONSTER_CARD_OF_DECK
 } from "../actions/types";
 
 const initialState = {
@@ -40,21 +44,26 @@ const deckReducer = (state = initialState, action) => {
             }
             break;
         case EDIT_DECK:
+        case ASSIGN_MONSTER_CARD_TO_DECK:
+        case ASSIGN_SPELL_CARD_TO_DECK:
+        case ASSIGN_TRAP_CARD_TO_DECK:
+        case REMOVE_MONSTER_CARD_OF_DECK:
             return {
                 ...state,
                 usersDecks: state.userDecks.map(deckItem => {
-                    if (deckItem._id === action.payload.deck._id) {
+                    if (deckItem._id == action.payload.deck._id) {
                         return action.payload.deck;
                     }
                     return deckItem;
-                })
+                }),
+                deck: action.payload.deck,
             }
             break;
         case DELETE_DECK:
             return {
                 ...state,
                 usersDecks: state.usersDecks.filter(deckItem => {
-                    return action.payload.deck._id !== deckItem._id;
+                    return action.payload.deck._id != deckItem._id;
                 })
             }
             break;

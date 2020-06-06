@@ -7,7 +7,10 @@ import {
     GET_DECKS_BY_USER_ID,
     ASSIGN_MONSTER_CARD_TO_DECK,
     ASSIGN_SPELL_CARD_TO_DECK,
-    ASSIGN_TRAP_CARD_TO_DECK
+    ASSIGN_TRAP_CARD_TO_DECK,
+    REMOVE_MONSTER_CARD_OF_DECK,
+    REMOVE_SPELL_CARD_OF_DECK,
+    REMOVE_TRAP_CARD_OF_DECK
 } from "./types";
 import {
     MAIN_PROXY_URL
@@ -140,6 +143,25 @@ export const assignMonsterCardToDeck = (cardID, deckID) => {
     
             return dispatch({
                 type: ASSIGN_MONSTER_CARD_TO_DECK,
+                payload: {
+                    deck
+                }
+            })
+        } catch (error) {
+
+        }
+    }
+}
+
+export const removeMonsterCardToDeck = (cardID, deckID) => {
+    return async (dispatch) => {
+        try {
+            const res = await axios.delete(`${MAIN_PROXY_URL}/decks/monster-card/${cardID}/deck/${deckID}`);
+    
+            const deck = res.data.data;
+
+            return dispatch({
+                type: REMOVE_MONSTER_CARD_OF_DECK,
                 payload: {
                     deck
                 }

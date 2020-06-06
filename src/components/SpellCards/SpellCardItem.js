@@ -27,7 +27,8 @@ class SpellCardItem extends Component {
 
     displayIndividualUtilsBox = () => {
         const {isAll, cardItem} = this.props;
-        if (isAll){
+        const userID = localStorage.getItem("userID");
+        if (isAll && userID){
             return (
                 <div className="item-utils-box">
                     <AssignSpellCardToDeck cardItem={cardItem}/>

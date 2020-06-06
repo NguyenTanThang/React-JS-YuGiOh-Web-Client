@@ -86,7 +86,7 @@ render(){
             <i className="fas fa-plus"></i>
           </Button>
           <Modal isOpen={modal} toggle={toggle} className={className}>
-            <ModalHeader toggle={toggle}>Assign trapCardReducer Card To Deck</ModalHeader>
+            <ModalHeader toggle={toggle}>Assign Trap Card To Deck</ModalHeader>
             <ModalBody>
               <Form onSubmit={onSubmit}>
     

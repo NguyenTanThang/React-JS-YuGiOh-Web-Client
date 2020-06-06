@@ -25,13 +25,14 @@ class DeckDetails extends Component {
 
     render() {
         const {deck, spellCards, trapCards, monsterCards} = this.state;
+        const deckID = this.props.match.params.deckID
 
         return (
             <div style={{marginBottom: "50px"}}>
                 <div className="container utils text-center" style={{marginTop: "50px"}}>
                     <h2 className="text-center ml-auto mr-auto">{deck.name}</h2>
                 </div>
-                <DeckTabs spellCards={spellCards} trapCards={trapCards} monsterCards={monsterCards}/>
+                <DeckTabs deckID={deckID} spellCards={spellCards} trapCards={trapCards} monsterCards={monsterCards}/>
             </div>
         )
     }

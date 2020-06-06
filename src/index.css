@@ -211,6 +211,6 @@ body {
   }
 
   .card-item ul li {
-    flex: 50%;
+    flex: 100%;
   }
 }

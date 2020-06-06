@@ -48,7 +48,6 @@ class AssignMonsterToCategory extends Component {
         this.props.assignMonsterToCategory(cardID, categoryID);
         this.setState({
             modal: false,
-            cardID: "",
             categoryID: "",
         })
     }

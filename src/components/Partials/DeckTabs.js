@@ -12,6 +12,8 @@ const DeckTabs = (props) => {
     if(activeTab !== tab) setActiveTab(tab);
   }
 
+  const deckID = props.deckID;
+
   return (
     <div className="container deck-tabs">
       <Nav tabs>
@@ -42,13 +44,13 @@ const DeckTabs = (props) => {
       </Nav>
       <TabContent activeTab={activeTab}>
         <TabPane tabId="1">
-            <SubCardList cards={props.monsterCards} />
+            <SubCardList deckID={deckID} cards={props.monsterCards} />
         </TabPane>
         <TabPane tabId="2">
-            <SubSpellCardList cards={props.spellCards} />
+            <SubSpellCardList deckID={deckID} cards={props.spellCards} />
         </TabPane>
         <TabPane tabId="3">
-            <SubTrapCardList cards={props.trapCards} />
+            <SubTrapCardList deckID={deckID} cards={props.trapCards} />
         </TabPane>
       </TabContent>
     </div>

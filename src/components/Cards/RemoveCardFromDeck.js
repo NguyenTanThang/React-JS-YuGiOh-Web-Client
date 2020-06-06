@@ -32,9 +32,8 @@ class DeleteCard extends Component {
             modal: false,
         })
         setTimeout(() => {
-            this.props.history.push("/")
-            this.props.history.push(`/decks/details/${this.props.deckID}`)
-        }, 1000)
+            window.location.reload(false);
+        }, 500)
     }
 
     render() {

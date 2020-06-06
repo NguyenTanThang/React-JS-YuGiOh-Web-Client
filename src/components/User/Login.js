@@ -22,7 +22,7 @@ class Login extends Component {
             if (userID) {
                 this.props.history.push("/profile");
             }
-        }, 1000)
+        }, 1500)
     }
 
     onChange = (e) => {

@@ -27,8 +27,11 @@ class SpellCardItem extends Component {
     }
 
     displayIndividualUtilsBox = () => {
-        const {isAll, cardItem, deckID} = this.props;
+        const {isAll, cardItem, deckID, userDecks} = this.props;
         const userID = localStorage.getItem("userID");
+        const owned = userDecks.some(userDeck => {
+            return deckID === userDeck._id
+            });
         if (isAll && userID){
             return (
                 <div className="item-utils-box">
@@ -38,7 +41,7 @@ class SpellCardItem extends Component {
                 </div>
             )
         } 
-        else if (!isAll && userID && deckID) {
+        else if (!isAll && userID && deckID && owned) {
             return (
                 <div className="item-utils-box">
                     <RemoveSpellCardFromDeck cardItem={this.props.cardItem} deckID={deckID}/>
@@ -82,7 +85,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
     return {
-        cards: state.spellCardReducer.cards
+        cards: state.spellCardReducer.cards,
+        userDecks: state.deckReducer.userDecks
     }
 }
 

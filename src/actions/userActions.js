@@ -17,13 +17,15 @@ export const signup = (username, email, password) => {
     
             const user = res.data.data;
             localStorage.setItem("userID", user._id)
-    
-            return dispatch({
+
+            await dispatch({
                 type: SIGNUP,
                 payload: {
                     user
                 }
             })
+    
+            return user;
         } catch (error) {
             
         }
@@ -39,13 +41,15 @@ export const login = (email, password) => {
     
             const user = res.data.data;
             localStorage.setItem("userID", user._id)
-    
-            return dispatch({
+
+            await dispatch({
                 type: LOGIN,
                 payload: {
                     user
                 }
             })
+    
+            return user
         } catch (error) {
             
         }
@@ -57,7 +61,7 @@ export const logout = () => {
         try {
             localStorage.removeItem("userID");
     
-            return dispatch({
+            return await dispatch({
                 type: LOGOUT
             })
         } catch (error) {

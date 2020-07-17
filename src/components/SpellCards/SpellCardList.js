@@ -8,6 +8,7 @@ import {
 import {connect} from "react-redux";
 import SpellCardItem from "./SpellCardItem";
 import AddSpellCard from "./AddSpellCard";
+import Header from "../Partials/Header";
 import {Container, Form, Input, Button, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 import Pagination from "../Partials/Pagination";
 import paginate from "../../utils/pagination";
@@ -192,6 +193,9 @@ class CardList extends Component {
         })
 
         return (
+            <div>
+                <Header imageURL={"https://steamuserimages-a.akamaihd.net/ugc/764984402033230210/0FDBEB551147EA8E6A3032D7153BBF0428950BDD/"} headerText={"SPELL CARDS"}/>
+
             <Container className="section-padding">
                 <div className="utils">
                     <AddSpellCard/>
@@ -209,6 +213,7 @@ class CardList extends Component {
 
                 <Pagination pageObject={pageObject} changeCurrentPage={this.changeCurrentPage}/>
             </Container>
+            </div>
         )
     }
 }

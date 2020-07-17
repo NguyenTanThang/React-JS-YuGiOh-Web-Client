@@ -143,8 +143,8 @@ class AddCard extends Component {
                     </FormGroup>
 
                     <FormGroup>
-                        <Button color="dark" block type="submit">Create</Button>
-                        <Link to="/" className="btn btn-block btn-info">Back</Link>
+                        <Button color="dark" className="pulse" block type="submit">Create</Button>
+                        <Link to="/" className="btn btn-block btn-info pulse">Back</Link>
                     </FormGroup>
 
                 </Form>

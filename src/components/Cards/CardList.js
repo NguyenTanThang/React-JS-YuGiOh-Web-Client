@@ -13,6 +13,7 @@ import {
 } from "../../fetchers/categoryFetchers";
 import {connect} from "react-redux";
 import CardItem from "./CardItem";
+import Header from "../Partials/Header";
 import {Container, Form, Input, Button, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 import {Link} from "react-router-dom";
 import Pagination from "../Partials/Pagination";
@@ -300,6 +301,9 @@ class CardList extends Component {
         })
 
         return (
+        <div>
+            <Header imageURL={"https://wallpaperaccess.com/full/1300535.jpg"} headerText={"MONSTER CARDS"}/>
+
             <Container className="section-padding">
                 <div className="utils">
                     <Link to="/add-monster-card" className="btn btn-dark">
@@ -319,6 +323,7 @@ class CardList extends Component {
 
                 <Pagination pageObject={pageObject} changeCurrentPage={this.changeCurrentPage}/>
             </Container>
+        </div>
         )
     }
 }

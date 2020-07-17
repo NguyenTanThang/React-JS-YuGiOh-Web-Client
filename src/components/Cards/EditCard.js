@@ -80,14 +80,6 @@ class EditCard extends Component {
         this.props.editCard(this.props.cardItem._id, {name, type, attribute, description, levels, atk, def, imageURL})
         this.setState({
             modal: false,
-            name: "", 
-            type: "", 
-            attribute: "", 
-            description: "", 
-            levels: 0, 
-            atk: 0, 
-            def: 0, 
-            imageURL: "",
         })
     }
 
@@ -97,7 +89,7 @@ class EditCard extends Component {
 
         return (
             <div>
-                <Button color="warning" onClick={toggle}>
+                <Button color="warning" onClick={toggle}  className="up">
                     <i className="fas fa-edit"></i>
                 </Button>
                 <Modal isOpen={modal} toggle={toggle}>
@@ -154,7 +146,6 @@ class EditCard extends Component {
             
                                 <FormGroup>
                                     <Button color="warning" block type="submit">Update</Button>
-                                    <Link to="/" className="btn btn-block btn-info">Back</Link>
                                 </FormGroup>
             
                             </Form>

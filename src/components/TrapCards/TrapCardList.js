@@ -8,6 +8,7 @@ import {
 import {connect} from "react-redux";
 import TrapCardItem from "./TrapCardItem";
 import AddTrapCard from "./AddTrapCard";
+import Header from "../Partials/Header";
 import {Container, Form, Input, Button, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 import Pagination from "../Partials/Pagination";
 import paginate from "../../utils/pagination";
@@ -192,6 +193,9 @@ class CardList extends Component {
         })
 
         return (
+            <div>
+                <Header imageURL={"https://static.zerochan.net/Yu-Gi-Oh%21.The.Dark.Side.of.Dimensions.full.1995973.jpg"} headerText={"TRAP CARDS"}/>
+
             <Container className="section-padding">
                 <div className="utils">
                     <AddTrapCard/>
@@ -209,6 +213,7 @@ class CardList extends Component {
 
                 <Pagination pageObject={pageObject} changeCurrentPage={this.changeCurrentPage}/>
             </Container>
+            </div>
         )
     }
 }

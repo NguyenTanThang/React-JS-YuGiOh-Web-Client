@@ -37,35 +37,39 @@ class Signup extends Component {
         const {username, email, password} = this.state;
 
         return (
-            <Container className="section-padding">
-            <div className="form-container">
+            <div className="login-container">
                 <h2 className="text-center">SignUp</h2>
 
-                <Form onSubmit={onSubmit}>
+                <Form onSubmit={onSubmit} id="login-form">
                 
                     <FormGroup>
-                        <Label htmlFor="username">Username:</Label>
+                        <div className="form-prefix">
+                            <i className="fas fa-user"></i>
+                        </div>
                         <Input id="username" name="username" required placeholder="Username" value={username} onChange={onChange}/>
                     </FormGroup>
 
                     <FormGroup>
-                        <Label htmlFor="email">Email:</Label>
+                        <div className="form-prefix">
+                            <i className="fas fa-at"></i>
+                        </div>
                         <Input id="email" name="email" required placeholder="Email" value={email} onChange={onChange}/>
                     </FormGroup>
 
                     <FormGroup>
-                        <Label htmlFor="password">Password:</Label>
+                        <div className="form-prefix">
+                            <i className="fas fa-lock"></i>
+                        </div>
                         <Input id="password" name="password" required placeholder="Password" value={password} type="password" onChange={onChange}/>
                     </FormGroup>
 
-                    <FormGroup>
+                    <FormGroup className="d-flex flex-wrap">
                         <Button color="dark" block type="submit">Signup</Button>
                         <Link to="/users/login" className="btn btn-block btn-info">Already have an account</Link>
                     </FormGroup>
 
                 </Form>
-            </div>
-            </Container>
+                </div>
         )
     }
 }

@@ -36,30 +36,33 @@ class Login extends Component {
         const {email, password} = this.state;
 
         return (
-            <Container className="section-padding">
-            <div className="form-container">
+            <div className="login-container">
+        
                 <h2 className="text-center">Login</h2>
 
-                <Form onSubmit={onSubmit}>
+                <Form onSubmit={onSubmit} id="login-form">
                 
                     <FormGroup>
-                        <Label htmlFor="email">Email:</Label>
+                        <div className="form-prefix">
+                            <i className="fas fa-user"></i>
+                        </div>
                         <Input id="email" name="email" required placeholder="Email" value={email} onChange={onChange}/>
                     </FormGroup>
 
                     <FormGroup>
-                        <Label htmlFor="password">Password:</Label>
+                        <div className="form-prefix">
+                            <i className="fas fa-lock"></i>
+                        </div>
                         <Input type="password" id="password" name="password" required placeholder="Password" value={password} onChange={onChange}/>
                     </FormGroup>
 
-                    <FormGroup>
+                    <FormGroup className="d-flex flex-wrap">
                         <Button color="dark" block type="submit">Login</Button>
                         <Link to="/users/signup" className="btn btn-block btn-info">{"Don't have an account"}</Link>
                     </FormGroup>
 
                 </Form>
             </div>
-            </Container>
         )
     }
 }

@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import {Container, Form, Input, Button, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 import {Link} from "react-router-dom";
 import DeckItem from "./DeckItem";
+import Header from "../Partials/Header";
 import AddDeck from "./AddDeck";
 import Pagination from "../Partials/Pagination";
 import paginate from "../../utils/pagination";
@@ -73,6 +74,9 @@ class DeckList extends Component {
         })
 
         return (
+            <div>
+                <Header imageURL={"https://wallpapercave.com/wp/WrJR9yU.jpg"} headerText={"DECK LIST"}/>
+
             <Container className="section-padding">
                 {displayUtilsBox()}
 
@@ -82,6 +86,7 @@ class DeckList extends Component {
 
                 <Pagination pageObject={pageObject} changeCurrentPage={this.changeCurrentPage}/>
             </Container>
+        </div>
         )
     }
 }

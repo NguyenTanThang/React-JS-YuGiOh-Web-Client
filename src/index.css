@@ -1,8 +1,318 @@
-body {
-  background-color: #8ccbbe;
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+
+:root {
+  --default-trans: all 0.3s ease;
 }
 
-.section-padding{
+/*Styling Login*/
+.login-container {
+  z-index: 3;
+  background-color: rgba(229, 243, 255, 0.95);
+  display: inline-block;
+  width: 40%;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-top: 20px;
+}
+
+#login-form {
+  padding: 30px;
+  padding-top: 20px;
+  padding-bottom: 50px;
+}
+
+#login-form > * {
+  margin-bottom: 10px;
+}
+
+#login-form input {
+  width: 90%;
+  margin-left: 10%;
+  padding: 15px;
+  border: none;
+  border-bottom: 2px solid #000;
+  margin-bottom: 20px;
+  background-color: transparent;
+  font-weight: bold;
+  border-radius: 0;
+}
+
+#login-form input:focus {
+  outline: none;
+   border-bottom: 2px solid #1e88e5;
+}
+
+#login-form a {
+  margin-top: 20px;
+  margin-bottom: 0;
+  text-decoration: none;
+  display: inline-block;
+}
+
+#login-form button {
+  background-color: #1e88e5;
+  color: #FFF;
+  width: 100%;
+  border: 1px solid #1e88e5;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+#login-form a {
+  width: 100%;
+}
+
+#login-form button:hover {
+    background-color: #FFF;
+  color: #1e88e5;
+    box-shadow: 0px 0px 10px #1e88e5; 
+}
+
+.form-group {
+  display: flex;
+  position: relative;
+}
+
+.form-group i {
+  position: absolute;
+  top: 5px;
+  font-size: 2rem;
+}
+
+/*Text Glitch Effect*/
+.glitch-text {
+  font-weight: bold;
+  color: #FFF;
+  letter-spacing: 14px;
+  font-size: 3rem;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.glitch-text::before, .glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.glitch-text::before {
+  color: blueviolet;
+  animation: glitch-effect 3s infinite
+}
+
+.glitch-text::after {
+  color: blue;
+  animation: glitch-effect 2s infinite
+}
+
+@keyframes glitch-effect {
+  0% {
+      left: -2px;
+      top: -2px;
+  }
+  25% {
+      left: 2px;
+      top: 0px;
+  }
+  50% {
+      left: -1px;
+      top: 2px;
+  }
+  75% {
+      left: 1px;
+      top: -1px;
+  }
+  100% {
+      left: 0px;
+      top: -2px;
+  }
+}
+/*Text Glitch Effect*/
+
+/*Header Partials*/
+.header {
+  height: 60vh;
+  background-attachment: fixed;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.header h4 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  font-weight: bold;
+  color: #FFF;
+  z-index: 2;
+  width: 80%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*Header Partials*/
+
+/*Button Hover Effect*/
+.fill:hover,
+.fill:focus {
+  box-shadow: inset 0 0 0 2em var(--hover);
+}
+
+.pulse:hover,
+.pulse:focus {
+  -webkit-animation: pulse 1s;
+          animation: pulse 1s;
+  box-shadow: 0 0 0 2em rgba(255, 255, 255, 0);
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--hover);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--hover);
+  }
+}
+.close:hover,
+.close:focus {
+  box-shadow: inset -3.5em 0 0 0 var(--hover), inset 3.5em 0 0 0 var(--hover);
+}
+
+.raise:hover,
+.raise:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  -webkit-transform: translateY(-0.25em);
+          transform: translateY(-0.25em);
+}
+
+.up:hover,
+.up:focus {
+  box-shadow: inset 0 -3.25em 0 0 var(--hover);
+}
+
+.slide:hover,
+.slide:focus {
+  box-shadow: inset 6.5em 0 0 0 var(--hover);
+}
+
+.offset {
+  box-shadow: 0.3em 0.3em 0 0 var(--color), inset 0.3em 0.3em 0 0 var(--color);
+}
+.offset:hover, .offset:focus {
+  box-shadow: 0 0 0 0 var(--hover), inset 6em 3.5em 0 0 var(--hover);
+}
+
+.fill {
+  --color: #a972cb;
+  --hover: #cb72aa;
+}
+
+.pulse {
+  --color: #ef6eae;
+  --hover: #ef8f6e;
+}
+
+.close {
+  --color: #ff7f82;
+  --hover: #ffdc7f;
+}
+
+.raise {
+  --color: #ffa260;
+  --hover: #e5ff60;
+}
+
+.up {
+  --color: #e4cb58;
+  --hover: #94e458;
+}
+
+.slide {
+  --color: #8fc866;
+  --hover: #66c887;
+}
+
+.offset {
+  --color: #19bc8b;
+  --hover: #1973bc;
+}
+
+button {
+  color: var(--color);
+  -webkit-transition: 0.25s;
+  transition: 0.25s;
+}
+button:hover, button:focus {
+  border-color: var(--hover);
+  color: #fff;
+}
+
+/*Button Hover Effect*/
+
+* {
+  font-family: 'Lato', sans-serif;
+}
+
+body {
+
+}
+
+.navbar {
+  z-index: 9999;
+}
+
+.pagination li {
+  color: #fff;
+  display: flex;
+}
+
+.pagination li button {
+  background-color: #444B6E;
+  padding: 5px 10px;
+  border: 2px solid #3D315B !important;
+  border-right: 0;
+  color: #FFF;
+}
+
+.pagination li.active button {
+  background-color: #9AB87A !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.pagination li:first-child button {
+  border-radius: 5px 0 0 5px;
+}
+
+.pagination li:last-child button {
+  border-radius: 0 5px 5px 0;
+}
+
+.section-padding {
   padding-top: 50px;
   padding-bottom: 50px;
 }
@@ -15,7 +325,7 @@ body {
   display: flex;
 }
 
-.item-utils-box > *{
+.item-utils-box>* {
   margin-left: 10px;
 }
 
@@ -32,6 +342,7 @@ body {
   background-color: #fff;
   border-radius: 20px;
   align-items: center;
+  border: 1px solid rgba(0,0,0,0.3);
 }
 
 .details-col-title h4 {
@@ -42,7 +353,7 @@ body {
   margin-top: 15px;
 }
 
-.utils > * {
+.utils>* {
   margin-right: 20px;
 }
 
@@ -54,6 +365,17 @@ body {
   background-color: #fff;
   margin-bottom: 50px;
   align-items: center;
+  transition: var(--default-trans);
+  border: 1px solid rgba(0,0,0,0.3);
+}
+
+.card-item:hover {
+  background-color: #444B6E;
+}
+
+.card-item:hover * {
+  color: #FFF;
+  border-color: #FFF;
 }
 
 .card-desc {
@@ -81,7 +403,7 @@ body {
   font-weight: bold;
 }
 
-.card-desc ul li img{
+.card-desc ul li img {
   width: 20px;
   height: 20px;
   margin-bottom: 2px;
@@ -101,15 +423,22 @@ body {
   background-color: #fff;
 }
 
-.card-item h4{
+.card-item h4 {
   margin-top: 20px;
+  font-weight: bold;
 }
 
 .card-item img {
   height: 250px;
 }
 
-@media (min-width: 320px) and (max-width: 1024px){
+@media (min-width: 768px) and (max-width: 1024px) {
+  .login-container {
+    width: 60%;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 1024px) {
   .item-utils-box {
     position: static;
     width: 100%;
@@ -133,17 +462,17 @@ body {
   .utils {
     flex-wrap: wrap;
   }
-  
+
   .utils * {
     width: 100%;
     margin-right: 0;
   }
 
-  .utils > * {
+  .utils>* {
     margin-bottom: 20px;
   }
 
-  .utils > *:last-child {
+  .utils>*:last-child {
     margin-bottom: 0;
   }
 
@@ -162,7 +491,7 @@ body {
   }
 
   .card-item.spell ul li,
-  .card-item.trap ul li{
+  .card-item.trap ul li {
     flex: 50%;
   }
 
@@ -189,13 +518,17 @@ body {
     margin-left: auto;
     margin-right: auto;
   }
-  
+
   .card-item img {
     text-align: center;
   }
 }
 
-@media (min-width: 320px) and (max-width: 767px){
+@media (min-width: 320px) and (max-width: 767px) {
+  .login-container {
+    width: 90%;
+  }
+
   .card-item.spell ul,
   .card-item.trap ul {
     width: 100%;
@@ -206,7 +539,7 @@ body {
   }
 
   .card-item.spell ul li,
-  .card-item.trap ul li{
+  .card-item.trap ul li {
     flex: 100%;
   }
 

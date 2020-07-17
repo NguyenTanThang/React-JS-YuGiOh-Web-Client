@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import Navigator from "./components/Partials/Navbar";
+import MessageAlert from "./components/Partials/MessageAlert";
 import Signup from "./components/User/Signup";
 import Login from "./components/User/Login";
 import Profile from "./components/User/Profile";
@@ -18,6 +19,7 @@ function App() {
     <div className="App">
       <Router>
         <Navigator/>
+        <MessageAlert/>
         <Switch>
           <Route path="/" exact component={CardList} />
           <Route path="/spell-cards" exact component={SpellCardList} />

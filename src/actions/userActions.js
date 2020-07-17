@@ -1,7 +1,8 @@
 import {
     SIGNUP,
     LOGIN,
-    LOGOUT
+    LOGOUT,
+    SET_ERROR,
 } from "./types";
 import {
     MAIN_PROXY_URL
@@ -15,6 +16,28 @@ export const signup = (username, email, password) => {
                 username, email, password
             });
     
+            const {success} = res.data;
+
+            if (!success) {
+                return dispatch({
+                    type: SET_ERROR,
+                    payload: {
+                        isVisible: true,
+                        message: `Unable to sign up`,
+                        success
+                    }
+                })
+            } else {
+                dispatch({
+                    type: SET_ERROR,
+                    payload: {
+                        isVisible: true,
+                        message: `Successfully signed up`,
+                        success
+                    }
+                })
+            }
+
             const user = res.data.data;
             localStorage.setItem("userID", user._id)
 
@@ -27,7 +50,15 @@ export const signup = (username, email, password) => {
     
             return user;
         } catch (error) {
-            
+            const message = error.response.data.message;
+            return dispatch({
+                type: SET_ERROR,
+                payload: {
+                    isVisible: true,
+                    message,
+                    success: false
+                }
+            })
         }
     }
 }
@@ -39,6 +70,28 @@ export const login = (email, password) => {
                 email, password
             });
     
+            const {success} = res.data;
+
+            if (!success) {
+                return dispatch({
+                    type: SET_ERROR,
+                    payload: {
+                        isVisible: true,
+                        message: `Unable to login`,
+                        success
+                    }
+                })
+            } else {
+                dispatch({
+                    type: SET_ERROR,
+                    payload: {
+                        isVisible: true,
+                        message: `Successfully logged in`,
+                        success
+                    }
+                })
+            }
+
             const user = res.data.data;
             localStorage.setItem("userID", user._id)
 
@@ -51,7 +104,15 @@ export const login = (email, password) => {
     
             return user
         } catch (error) {
-            
+            const message = error.response.data.message;
+            return dispatch({
+                type: SET_ERROR,
+                payload: {
+                    isVisible: true,
+                    message,
+                    success: false
+                }
+            })
         }
     }
 }
@@ -65,7 +126,15 @@ export const logout = () => {
                 type: LOGOUT
             })
         } catch (error) {
-            
+            const message = error.response.data.message;
+            return dispatch({
+                type: SET_ERROR,
+                payload: {
+                    isVisible: true,
+                    message,
+                    success: false
+                }
+            })
         }
     }
 }

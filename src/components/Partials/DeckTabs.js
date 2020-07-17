@@ -15,7 +15,7 @@ const DeckTabs = (props) => {
   const deckID = props.deckID;
 
   return (
-    <div className="container deck-tabs">
+    <div className="deck-tabs">
       <Nav tabs>
         <NavItem>
           <NavLink

@@ -3,6 +3,8 @@ import spellCardReducer from "./spellCardReducer";
 import trapCardReducer from "./trapCardReducer";
 import userReducer from "./userReducer";
 import deckReducer from "./deckReducer";
+import loadingReducer from "./loadingReducer";
+import errorReducer from "./errorReducer";
 import {combineReducers} from "redux";
 
 const rootReducer = combineReducers({
@@ -10,7 +12,9 @@ const rootReducer = combineReducers({
     spellCardReducer,
     trapCardReducer,
     userReducer,
-    deckReducer
+    deckReducer,
+    loadingReducer,
+    errorReducer
 })
 
 export default rootReducer;

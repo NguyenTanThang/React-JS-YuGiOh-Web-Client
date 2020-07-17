@@ -3,6 +3,7 @@ import {getDeckByID} from "../../actions/deckActions";
 import {connect} from "react-redux";
 import DeckTabs from "../Partials/DeckTabs";
 import Header from "../Partials/Header";
+import Loading from "../Partials/Loading";
 import { Link } from 'react-router-dom';
 
 class DeckDetails extends Component {
@@ -11,24 +12,39 @@ class DeckDetails extends Component {
         deck: {},
         spellCards: [],
         trapCards: [],
-        monsterCards: []
+        monsterCards: [],
+        loading: true
     }
 
     componentDidMount() {
         const deckID = this.props.match.params.deckID
         this.props.getDeckByID(deckID);
-        setTimeout(() => {
-            console.log(this.props.deck);
+
+        /*
+        console.log(this.props.deck);
             const {deck, spellCards, trapCards, monsterCards} = this.props.deck;
             this.setState({
                 deck, spellCards, trapCards, monsterCards
             })
-        }, 5000)
+        */
+
+        setTimeout(() => {
+            console.log(this.props.deck);
+            const {deck, spellCards, trapCards, monsterCards} = this.props.deck;
+            this.setState({
+                deck, spellCards, trapCards, monsterCards,
+                loading: false
+            })
+        }, 1000)
     }
 
     render() {
-        const {deck, spellCards, trapCards, monsterCards} = this.state;
-        const deckID = this.props.match.params.deckID
+        const {deck, spellCards, trapCards, monsterCards, loading} = this.state;
+        const deckID = this.props.match.params.deckID;
+
+        if (loading) {
+            return <Loading/>
+        }
 
         return (
             <div>

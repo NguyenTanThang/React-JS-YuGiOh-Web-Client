@@ -282,7 +282,7 @@ body {
 }
 
 .navbar {
-  z-index: 9999;
+  z-index: 4;
 }
 
 .pagination li {

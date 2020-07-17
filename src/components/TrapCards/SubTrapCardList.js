@@ -34,14 +34,22 @@ class CardList extends Component {
             return <TrapCardItem deckID={deckID} cardItem={cardItem} key={index}/>
         })
 
+        if (currentCards.length === 0) {
+            return (
+                <div className="section-padding text-center">
+                    <h4>There is no trap card in this deck</h4>
+                </div>
+            )
+        }
+
         return (
-            <Container className="section-padding">
+            <div className="section-padding">
                 <ul className="list-group">
                     {currentCards}
                 </ul>
 
                 <Pagination pageObject={pageObject} changeCurrentPage={this.changeCurrentPage}/>
-            </Container>
+            </div>
         )
     }
 }

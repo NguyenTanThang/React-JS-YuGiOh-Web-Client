@@ -51,14 +51,22 @@ class SubCardList extends Component {
             return <CardItem deckID={deckID} isAll={false} cardItem={cardItem} key={index}/>
         })
 
+        if (currentCards.length === 0) {
+            return (
+                <div className="section-padding text-center">
+                    <h4>There is no monster card in this deck</h4>
+                </div>
+            )
+        }
+
         return (
-            <Container className="section-padding">
+            <div className="section-padding">
                 <ul className="list-group">
                     {currentCards}
                 </ul>
 
                 <Pagination pageObject={pageObject} changeCurrentPage={this.changeCurrentPage}/>
-            </Container>
+            </div>
         )
     }
 }

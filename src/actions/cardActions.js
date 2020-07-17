@@ -3,7 +3,10 @@ import {
     ADD_CARD,
     DELETE_CARD,
     EDIT_CARD,
-    ASSIGN_MONSTER_TO_CATEGORY
+    ASSIGN_MONSTER_TO_CATEGORY,
+    CLEAR_LOADING,
+    SET_LOADING,
+    SET_ERROR,
 } from "./types";
 import {
     MAIN_PROXY_URL
@@ -13,18 +16,33 @@ import axios from "axios";
 export const getAllCards = () => {
     return async (dispatch) => {
         try {
+            dispatch({
+                type: SET_LOADING
+            })
             const res = await axios.get(`${MAIN_PROXY_URL}/cards`);
 
             const cards = res.data.data;
 
-            return dispatch({
+            dispatch({
                 type: GET_ALL_CARDS,
                 payload: {
                     cards
                 }
             })
-        } catch (error) {
 
+            return dispatch({
+                type: CLEAR_LOADING
+            })
+        } catch (error) {
+            const message = error.response.data.message;
+            return dispatch({
+                type: SET_ERROR,
+                payload: {
+                    isVisible: true,
+                    message,
+                    success: false
+                }
+            })
         }
     }
 }
@@ -53,8 +71,30 @@ export const addCard = (newCard) => {
                 imageURL
             });
 
-            const card = res.data.data;
+            const {success} = res.data;
 
+            if (!success) {
+                return dispatch({
+                    type: SET_ERROR,
+                    payload: {
+                        isVisible: true,
+                        message: `Unable to create new card`,
+                        success
+                    }
+                })
+            } else {
+                dispatch({
+                    type: SET_ERROR,
+                    payload: {
+                        isVisible: true,
+                        message: `Successfully created a new card`,
+                        success
+                    }
+                })
+            }
+
+            const card = res.data.data;
+            
             return dispatch({
                 type: ADD_CARD,
                 payload: {
@@ -62,7 +102,15 @@ export const addCard = (newCard) => {
                 }
             })
         } catch (error) {
-            console.log(error)
+            const message = error.response.data.message;
+            return dispatch({
+                type: SET_ERROR,
+                payload: {
+                    isVisible: true,
+                    message,
+                    success: false
+                }
+            })
         }
     }
 }
@@ -81,7 +129,15 @@ export const deleteCard = (cardID) => {
                 }
             })
         } catch (error) {
-            console.log(error)
+            const message = error.response.data.message;
+            return dispatch({
+                type: SET_ERROR,
+                payload: {
+                    isVisible: true,
+                    message,
+                    success: false
+                }
+            })
         }
     }
 }
@@ -110,6 +166,28 @@ export const editCard = (cardID, updatedCard) => {
                 imageURL
             });
 
+            const {success} = res.data;
+
+            if (!success) {
+                return dispatch({
+                    type: SET_ERROR,
+                    payload: {
+                        isVisible: true,
+                        message: `Unable to update the card`,
+                        success
+                    }
+                })
+            } else {
+                dispatch({
+                    type: SET_ERROR,
+                    payload: {
+                        isVisible: true,
+                        message: `The card is successfully updated`,
+                        success
+                    }
+                })
+            }
+
             const card = res.data.data;
 
             return dispatch({
@@ -119,7 +197,15 @@ export const editCard = (cardID, updatedCard) => {
                 }
             })
         } catch (error) {
-            console.log(error)
+            const message = error.response.data.message;
+            return dispatch({
+                type: SET_ERROR,
+                payload: {
+                    isVisible: true,
+                    message,
+                    success: false
+                }
+            })
         }
     }
 }
@@ -134,6 +220,28 @@ export const assignMonsterToCategory = (cardID, categoryID) => {
             const card = res.data.data;
 
             res = await axios.get(`${MAIN_PROXY_URL}/cards`);
+
+            const {success} = res.data;
+
+            if (!success) {
+                return dispatch({
+                    type: SET_ERROR,
+                    payload: {
+                        isVisible: true,
+                        message: `Unable to assign monster card to category`,
+                        success
+                    }
+                })
+            } else {
+                dispatch({
+                    type: SET_ERROR,
+                    payload: {
+                        isVisible: true,
+                        message: `Successfully assigned monster card to category`,
+                        success
+                    }
+                })
+            }
 
             const cards = res.data.data;
 
@@ -151,7 +259,15 @@ export const assignMonsterToCategory = (cardID, categoryID) => {
                 }
             })
         } catch (error) {
-            console.log(error)
+            const message = error.response.data.message;
+            return dispatch({
+                type: SET_ERROR,
+                payload: {
+                    isVisible: true,
+                    message,
+                    success: false
+                }
+            })
         }
     }
 }

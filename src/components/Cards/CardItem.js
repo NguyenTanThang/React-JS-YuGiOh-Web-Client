@@ -4,6 +4,9 @@ import {
 } from "../../actions/cardActions";
 import {connect} from "react-redux";
 import {
+    getDecksByUserID
+} from "../../actions/deckActions";
+import {
     getAttributeByID
 } from "../../fetchers/attributeFetchers";
 import {
@@ -23,11 +26,14 @@ class CardItem extends Component {
     state = {
         type: {},
         attribute: {},
-        categoryList: []
+        categoryList: [],
+        loading: true
     }
 
     async componentDidMount() {
         this.props.getAllCards();
+        const userID = localStorage.getItem("userID");
+        this.props.getDecksByUserID(userID);
         const {typeID, attributeID, categoryIDs} = this.props.cardItem;
         let categoryList = [];
         for (let index = 0; index < categoryIDs.length; index++) {
@@ -40,12 +46,34 @@ class CardItem extends Component {
         this.setState({
             type,
             attribute,
-            categoryList
+            categoryList,
+            loading: false
         })
     }
 
+    displayCardType = () => {
+        const {type, loading} = this.state;
+        if (loading) {
+            return "Loading..."
+        } else {
+            return `Type ${type.name}`
+        }
+    }
+
+    displayCardAttribute = () => {
+        const {attribute, loading} = this.state;
+        if (loading) {
+            return <li>Loading...</li>
+        } else {
+            return <li><img className="img-fluid" alt={attribute.name} src={attribute.imageURL}/> {attribute.name}</li>
+        }
+    }
+
     displayCardCategories = () => {
-        const {categoryList} = this.state;
+        const {categoryList, loading} = this.state;
+        if (loading) {
+            return "Loading..."
+        }
         if (categoryList.length === 0){
             return "N/A"
         }
@@ -89,9 +117,8 @@ class CardItem extends Component {
     }
 
     render() {
-        const {name, typeID, attributeID, description, levels, atk, def, imageURL, categoryIDs, _id} = this.props.cardItem;
-        const {type, attribute} = this.state;
-        const {displayCardCategories, displayIndividualUtilsBox} = this;
+        const {name, description, levels, atk, def, imageURL} = this.props.cardItem;
+        const {displayCardCategories, displayIndividualUtilsBox, displayCardType, displayCardAttribute} = this;
 
         return (
             <div className="card-item group-list-item">
@@ -100,9 +127,9 @@ class CardItem extends Component {
                 <div className="card-desc">
                     <h4>{name}</h4>
                     <ul>
-                        <li>Type {type.name}</li>
+                        <li>{displayCardType()}</li>
                         <li>{displayCardCategories()}</li>
-                        <li><img className="img-fluid" alt={attribute.name} src={attribute.imageURL}/> {attribute.name}</li>
+                        {displayCardAttribute()}
                         <li>Levels {levels}</li>
                         <li>ATK {atk}</li>
                         <li>DEF {def}</li>
@@ -118,6 +145,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getAllCards: () => {
             dispatch(getAllCards())
+        },
+        getDecksByUserID: (userID) => {
+            dispatch(getDecksByUserID(userID))
         }
     }
 }

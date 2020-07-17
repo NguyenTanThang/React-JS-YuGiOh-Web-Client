@@ -107,7 +107,7 @@ render(){
                 </FormGroup>
 
                 <FormGroup>
-                    <Button type="submit" color="dark" block>Create</Button>
+                    <Button type="submit" color="dark" block>Update</Button>
                 </FormGroup>
               
               </Form>

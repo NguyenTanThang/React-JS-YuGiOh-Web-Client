@@ -316,6 +316,31 @@ body {
   border-radius: 0 5px 5px 0;
 }
 
+#pagination-form button {
+  background-color: #444B6E;
+  padding: 5px 10px;
+  border: 2px solid #3D315B !important;
+  color: #FFF;
+}
+
+#pagination-form button:hover {
+  color: #444B6E;
+  background-color: #fff;
+}
+
+#pagination-form {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#pagination-form input {
+  width: 40%;
+}
+
 .section-padding {
   padding-top: 50px;
   padding-bottom: 50px;

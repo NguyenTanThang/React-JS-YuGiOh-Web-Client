@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class Pagination extends Component {
     render() {
+        console.log(this.props.pageObject)
         const {pages, currentPage} = this.props.pageObject;
         const {changeCurrentPage} = this.props;
 
@@ -21,21 +22,27 @@ class Pagination extends Component {
         })
 
         return (
-            <nav aria-label="Page Navigation" >
-                <ul className="pagination justify-content-center">
+            <div>
+                <nav aria-label="Page Navigation" >
+                    <ul className="pagination justify-content-center">
 
-                    <li className="page-item">
-                        <button className="page-link" onClick={() => {changeCurrentPage(currentPage - 1)}}>Previous</button>
-                    </li>
+                        <li className="page-item">
+                            <button className="page-link" onClick={() => {changeCurrentPage(currentPage - 1)}}>Previous</button>
+                        </li>
 
-                    {arrayOfPageLinks}
+                        {arrayOfPageLinks}
 
-                    <li className="page-item">
-                        <button className="page-link" onClick={() => {changeCurrentPage(currentPage + 1)}}>Next</button>
-                    </li>
+                        <li className="page-item">
+                            <button className="page-link" onClick={() => {changeCurrentPage(currentPage + 1)}}>Next</button>
+                        </li>
 
-                </ul>
-            </nav>
+                    </ul>
+                </nav>
+
+                <form id="pagination-form">
+                    <input type="number"/>
+                </form>
+            </div>
         )
     }
 }

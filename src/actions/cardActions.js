@@ -58,7 +58,8 @@ export const addCard = (newCard) => {
                 levels,
                 atk,
                 def,
-                imageURL
+                imageURL,
+                categoryID
             } = newCard;
             const res = await axios.post(`${MAIN_PROXY_URL}/cards/add`, {
                 name,
@@ -68,7 +69,8 @@ export const addCard = (newCard) => {
                 levels,
                 atk,
                 def,
-                imageURL
+                imageURL,
+                categoryID
             });
 
             const {success} = res.data;

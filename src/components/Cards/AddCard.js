@@ -6,6 +6,9 @@ import {
     getAllAttributes
 } from "../../fetchers/attributeFetchers";
 import {
+    getAllCategories
+} from "../../fetchers/categoryFetchers";
+import {
     getAllTypes
 } from "../../fetchers/typeFetchers";
 import {connect} from "react-redux";
@@ -22,12 +25,14 @@ class AddCard extends Component {
         type: "", 
         attribute: "", 
         description: "", 
+        categoryID: "", 
         levels: 0, 
         atk: 0, 
         def: 0, 
         imageURL: "",
         typeList: [],
-        attributeList: []
+        attributeList: [],
+        categoryList: []
     }
 
     onChange = (e) => {
@@ -58,20 +63,34 @@ class AddCard extends Component {
         })
     }
 
+    displayCategoryOptions = () => {
+        const {categoryList} = this.state;
+
+        return categoryList.map(categoryItem => {
+            return (
+                <option key={categoryItem._id} value={categoryItem._id}>
+                    {categoryItem.name}
+                </option>
+            )
+        })
+    }
+
     async componentDidMount() {
         const attributeList = await getAllAttributes();
         const typeList = await getAllTypes();
+        const categoryList = await getAllCategories();
         this.setState({
             attributeList,
-            typeList
+            typeList,
+            categoryList
         })
     }
 
     onSubmit = (e) => {
         e.preventDefault();
         console.log(this.state);
-        const {name, type, attribute, description, levels, atk, def, imageURL} = this.state;
-        this.props.addCard({name, type, attribute, description, levels, atk, def, imageURL})
+        const {name, type, attribute, description, levels, atk, def, imageURL, categoryID} = this.state;
+        this.props.addCard({name, type, attribute, description, levels, atk, def, imageURL, categoryID})
         this.setState({
             name: "", 
             type: "", 
@@ -81,12 +100,13 @@ class AddCard extends Component {
             atk: 0, 
             def: 0, 
             imageURL: "",
+            categoryID: ""
         })
     }
 
     render() {
-        const {onChange, displayTypeOptions, displayAttributeOptions, onSubmit} = this;
-        const {name, type, attribute, description, levels, atk, def, imageURL} = this.state;
+        const {onChange, displayTypeOptions, displayAttributeOptions, onSubmit, displayCategoryOptions} = this;
+        const {name, type, attribute, description, levels, atk, def, imageURL, categoryID} = this.state;
 
         return (
         <div>
@@ -117,6 +137,14 @@ class AddCard extends Component {
                                 {displayAttributeOptions()}
                             </select>
                         </div>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="category">Category:</Label>
+                        <select defaultValue={categoryID} id="categoryID" name="categoryID" required value={categoryID} onChange={onChange} className="custom-select">
+                            <option value={""} disabled>--Category--</option>
+                                {displayCategoryOptions()}
+                        </select>
                     </FormGroup>
 
                     <FormGroup className="row">

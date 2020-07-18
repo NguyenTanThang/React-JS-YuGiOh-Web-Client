@@ -285,6 +285,20 @@ body {
 
 }
 
+.category-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.category-input input {
+  width: 65%;
+}
+
+.category-input button {
+  width: 30%;
+}
+
 .navbar {
   z-index: 4;
 }

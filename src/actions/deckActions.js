@@ -191,7 +191,8 @@ export const editDeck = (deckID, name) => {
                     payload: {
                         isVisible: true,
                         message: `The deck is successfully updated`,
-                        success
+                        success,
+                        isReload: true
                     }
                 })
             }

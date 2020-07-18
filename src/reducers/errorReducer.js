@@ -6,7 +6,8 @@ import {
 const initialState = {
     isVisible: false,
     message: "",
-    success: false
+    success: false,
+    isReload: false
 }
 
 const errorReducer = (state = initialState, action) => {
@@ -16,7 +17,8 @@ const errorReducer = (state = initialState, action) => {
                 ...state,
                 isVisible: action.payload.isVisible,
                 message: action.payload.message,
-                success: action.payload.success
+                success: action.payload.success,
+                isReload: action.payload.isReload
             }
             break;
         case CLEAR_ERROR:
@@ -24,7 +26,8 @@ const errorReducer = (state = initialState, action) => {
                 ...state,
                 isVisible: false,
                 message: "",
-                success: false
+                success: false,
+                isReload: false
             }
             break;
         default:

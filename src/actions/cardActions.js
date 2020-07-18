@@ -155,7 +155,8 @@ export const editCard = (cardID, updatedCard) => {
                 levels,
                 atk,
                 def,
-                imageURL
+                imageURL,
+                categoryIDs
             } = updatedCard;
             const res = await axios.put(`${MAIN_PROXY_URL}/cards/edit/${cardID}`, {
                 name,
@@ -165,7 +166,8 @@ export const editCard = (cardID, updatedCard) => {
                 levels,
                 atk,
                 def,
-                imageURL
+                imageURL,
+                categoryIDs
             });
 
             const {success} = res.data;
@@ -185,7 +187,8 @@ export const editCard = (cardID, updatedCard) => {
                     payload: {
                         isVisible: true,
                         message: `The card is successfully updated. Reload to take effect`,
-                        success
+                        success,
+                        isReload: true
                     }
                 })
             }
@@ -239,8 +242,9 @@ export const assignMonsterToCategory = (cardID, categoryID) => {
                     type: SET_ERROR,
                     payload: {
                         isVisible: true,
-                        message: `Successfully assigned monster card to category`,
-                        success
+                        message: `Successfully assigned monster card to category. Reload to take effect`,
+                        success,
+                        isReload: true
                     }
                 })
             }

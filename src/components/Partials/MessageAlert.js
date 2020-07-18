@@ -8,15 +8,20 @@ class MessageAlert extends Component {
         this.props.clearError();
     }
 
+    reload = () => {
+        window.location.reload();
+    }
+
     render() {
         const {
             className,
             message,
             success,
-            isVisible
+            isVisible,
+            isReload
           } = this.props;
         const modal = isVisible;
-        const {toggle} = this;
+        const {toggle, reload} = this;
         
         return (
             <div>
@@ -26,6 +31,7 @@ class MessageAlert extends Component {
                         <Alert color={success ? "success" : "danger"}>
                             {message}
                         </Alert>
+                        {isReload === true ? <button onClick={reload} className="btn btn-info btn-block">Reload Now</button> : ""}
                     </ModalBody>
                     <ModalFooter>
                         <Button color="secondary" onClick={toggle}>Cancel</Button>
@@ -41,6 +47,7 @@ const mapStateToProps = (state) => {
         isVisible: state.errorReducer.isVisible,
         message: state.errorReducer.message,
         success: state.errorReducer.success,
+        isReload: state.errorReducer.isReload
     }
 }
 

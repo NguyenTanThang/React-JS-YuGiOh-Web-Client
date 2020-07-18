@@ -63,6 +63,24 @@ class MonsterCardSearchEngine extends Component {
 }
 
   toggle = () => {
+    const {isSearchObjectEmpty} = this.props;
+
+    if (isSearchObjectEmpty){
+        this.setState({
+            searched_name: "",
+            typeID: "",
+            attributeID: "",
+            categoryID: "",
+            min_atk: "",
+            max_atk: "",
+            min_def: "",
+            max_def: "",
+            min_levels: "",
+            max_levels: "",
+            description: ""
+        })
+    }
+
       this.setState({
         modal: !this.state.modal
       })
@@ -274,6 +292,12 @@ class CardList extends Component {
         })
     }
 
+    clearSearchObject = () => {
+        this.setState({
+            searchObject: {}
+        })
+    }
+
     displayAphabeticalOrder = () => {
         return (
             <>
@@ -284,16 +308,25 @@ class CardList extends Component {
         )
     }
 
+    isSearchObjectEmpty = () => {
+        const {searchObject} = this.state;
+        for(var key in searchObject) {
+            if(searchObject.hasOwnProperty(key))
+                return false;
+        }
+        return true;
+    }
+
     render() {
         const {cards} = this.props;
         const {currentPage, searchObject, aphabeticalOrder} = this.state;
-        const {onSearch, displayAphabeticalOrder, onChange} = this;
+        const {onSearch, displayAphabeticalOrder, onChange, clearSearchObject, isSearchObjectEmpty} = this;
         let currentCards = cards;
 
         currentCards = monsterCardSorter(currentCards, searchObject)
         currentCards = alphabeticalOrderSorter(currentCards, aphabeticalOrder)
 
-        const pageObject = paginate(currentCards.length, currentPage, 5, 5)
+        const pageObject = paginate(currentCards.length, currentPage, 5, 4)
 
         currentCards = currentCards.slice(pageObject.startIndex, pageObject.endIndex + 1);
 
@@ -310,12 +343,13 @@ class CardList extends Component {
                     <Link to="/add-monster-card" className="btn btn-dark">
                         Add Monster Card
                     </Link>
-                    <MonsterCardSearchEngine onSearch={onSearch}/>
+                    <MonsterCardSearchEngine isSearchObjectEmpty={isSearchObjectEmpty} onSearch={onSearch}/>
                     <FormGroup>
                         <select defaultValue={aphabeticalOrder} id="aphabeticalOrder" name="aphabeticalOrder" required value={aphabeticalOrder} onChange={onChange} className="custom-select">
                             {displayAphabeticalOrder()}
                         </select>
                     </FormGroup>
+                    {!isSearchObjectEmpty() ? <Button onClick={clearSearchObject}>Reset Search Criteria</Button> : <></>}
                 </div>
 
                 <ul className="list-group">

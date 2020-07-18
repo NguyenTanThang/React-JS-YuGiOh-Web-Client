@@ -27,11 +27,10 @@ class CardItem extends Component {
         type: {},
         attribute: {},
         categoryList: [],
-        loading: true
+        loading: true,
     }
 
-    async componentDidMount() {
-        this.props.getAllCards();
+    async componentWillMount() {
         const userID = localStorage.getItem("userID");
         this.props.getDecksByUserID(userID);
         const {typeID, attributeID, categoryIDs} = this.props.cardItem;

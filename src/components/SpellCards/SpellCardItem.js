@@ -85,7 +85,7 @@ class SpellCardItem extends Component {
                 <div className="card-desc">
                     <h4>{name}</h4>
                     {displaySpellCardCategory()}
-                    <p>{description}</p>
+                    <div dangerouslySetInnerHTML={{__html: description}} />
                 </div>
             </div>
         )

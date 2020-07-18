@@ -85,7 +85,7 @@ class CardItem extends Component {
                 <div className="card-desc">
                     <h4>{name}</h4>
                     {displayTrapCardCategory()}
-                    <p>{description}</p>
+                    <div dangerouslySetInnerHTML={{__html: description}} />
                 </div>
             </div>
         )

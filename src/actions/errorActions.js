@@ -3,14 +3,15 @@ import {
     SET_ERROR
 } from "./types";
 
-export const setError = (isVisible, message, success) => {
+export const setError = (isVisible, message, success, isReload) => {
     return (dispatch) => {
         return dispatch({
             type: SET_ERROR,
             payload: {
                 isVisible,
                 message,
-                success
+                success,
+                isReload
             }
         })
     }

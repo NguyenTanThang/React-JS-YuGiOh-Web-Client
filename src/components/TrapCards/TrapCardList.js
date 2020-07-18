@@ -184,7 +184,7 @@ class CardList extends Component {
         currentCards = spellCardSorter(currentCards, searchObject)
         currentCards = alphabeticalOrderSorter(currentCards, aphabeticalOrder)
 
-        const pageObject = paginate(currentCards.length, currentPage, 5, 5)
+        const pageObject = paginate(currentCards.length, currentPage, 5, 4)
 
         currentCards = currentCards.slice(pageObject.startIndex, pageObject.endIndex + 1);
 

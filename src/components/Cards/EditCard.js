@@ -6,6 +6,9 @@ import {
     getAllAttributes
 } from "../../fetchers/attributeFetchers";
 import {
+    getCategoryByID
+} from "../../fetchers/categoryFetchers";
+import {
     getAllTypes
 } from "../../fetchers/typeFetchers";
 import {connect} from "react-redux";
@@ -27,23 +30,70 @@ class EditCard extends Component {
         def: 0, 
         imageURL: "",
         typeList: [],
-        attributeList: []
+        attributeList: [],
+        categoryIDs: [],
+        categoryList: [],
+        loading: true
     }
 
     async componentDidMount() {
         const attributeList = await getAllAttributes();
         const typeList = await getAllTypes();
-        const {name, typeID, attributeID, description, levels, atk, def, imageURL} = this.props.cardItem;
+        let categoryList = [];
+        const {name, typeID, attributeID, description, levels, atk, def, imageURL, categoryIDs} = this.props.cardItem;
+        for (let index = 0; index < categoryIDs.length; index++) {
+            const categoryID = categoryIDs[index];
+            const category = await getCategoryByID(categoryID);
+            categoryList.push(category)
+        }
         this.setState({
-            name, type: typeID, attribute: attributeID, description, levels, atk, def, imageURL,
+            name, type: typeID, attribute: attributeID, description, levels, atk, def, imageURL, categoryIDs,
             attributeList,
-            typeList
+            typeList,
+            categoryList,
+            loading: false
         })
     }
 
     onChange = (e) => {
         this.setState({
             [e.target.id]: e.target.value
+        })
+    }
+
+    onRemoveCategorySelect = (categoryID) => {
+        let categoryIDs = this.state.categoryIDs;
+        let categoryList = this.state.categoryList;
+        categoryIDs = categoryIDs.filter(categoryIDItem => {
+            return categoryIDItem !== categoryID;
+        })
+        categoryList = categoryList.filter(categoryItem => {
+            return categoryItem._id !== categoryID;
+        })
+        this.setState({
+            categoryIDs,
+            categoryList
+        })
+    }
+
+    displayCategoryInputs = () => {
+        const {categoryList, loading} = this.state;
+        const {onRemoveCategorySelect} = this;
+
+        if (loading) {
+            return <p>Loading...</p>
+        }
+        
+        return categoryList.map((categoryItem, index) => {
+            const categoryID = categoryItem._id
+            return (
+                <div className="category-input mb-2">
+                    <input type="text" value={categoryItem.name} className="form-control" id={`${categoryID}-${index}`} name={`${categoryID}-${index}`} key={`${categoryID}-${index}`}/>
+
+                    <button className="btn btn-danger btn-block" onClick={() => onRemoveCategorySelect(categoryID)} type="button">Remove</button>
+                </div>
+                
+            )
         })
     }
 
@@ -77,16 +127,15 @@ class EditCard extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state);
-        const {name, type, attribute, description, levels, atk, def, imageURL} = this.state;
-        this.props.editCard(this.props.cardItem._id, {name, type, attribute, description, levels, atk, def, imageURL})
+        const {name, type, attribute, description, levels, atk, def, imageURL, categoryIDs} = this.state;
+        this.props.editCard(this.props.cardItem._id, {name, type, attribute, description, levels, atk, def, imageURL, categoryIDs})
         this.setState({
             modal: false,
         })
     }
 
     render() {
-        const {onChange, displayTypeOptions, displayAttributeOptions, onSubmit, toggle} = this;
+        const {onChange, displayTypeOptions, displayAttributeOptions, onSubmit, toggle, displayCategoryInputs} = this;
         const {name, type, attribute, description, levels, atk, def, imageURL, modal} = this.state;
 
         return (
@@ -111,6 +160,11 @@ class EditCard extends Component {
                                         <option value={""} disabled>--Type--</option>
                                             {displayTypeOptions()}
                                     </select>
+                                </FormGroup>
+
+                                <FormGroup>
+                                    <Label htmlFor="categoryIDs">Category:</Label>
+                                    {displayCategoryInputs()}
                                 </FormGroup>
 
                                 <FormGroup>
@@ -186,7 +240,6 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
     return {
-        cards: state.cardReducer.cards
     }
 }
 

@@ -53,6 +53,14 @@ class Pagination extends Component {
 
                         {arrayOfPageLinks}
 
+                        <li className="page-item disabled">
+                            <button className="page-link" disabled>...</button>
+                        </li>
+
+                        <li className="page-item">
+                            <button className="page-link" onClick={() => {changeCurrentPage(totalPages)}}>{totalPages}</button>
+                        </li>
+
                         <li className="page-item">
                             <button className="page-link" onClick={() => {changeCurrentPage(currentPage + 1)}}>Next</button>
                         </li>

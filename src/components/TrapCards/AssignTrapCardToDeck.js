@@ -82,7 +82,7 @@ render(){
 
       return (
         <div>
-          <Button color="dark" onClick={toggle}>
+          <Button color="dark" onClick={toggle}  className="up">
             <i className="fas fa-plus"></i>
           </Button>
           <Modal isOpen={modal} toggle={toggle} className={className}>

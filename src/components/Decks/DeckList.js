@@ -73,21 +73,35 @@ class DeckList extends Component {
             return <DeckItem deckItem={deckItem} key={deckItem._id}/>
         })
 
-        return (
-            <div>
-                <Header imageURL={"https://wallpapercave.com/wp/WrJR9yU.jpg"} headerText={"DECK LIST"}/>
+        if (currentDecks.length === 0){
+            return (
+                <div>
+                    <Header imageURL={"https://wallpapercave.com/wp/WrJR9yU.jpg"} headerText={"DECK LIST"}/>
 
-            <Container className="section-padding">
-                {displayUtilsBox()}
+                    <Container className="section-padding">
+                        {displayUtilsBox()}
 
-                <ul className="list-group">
-                    {currentDecks}
-                </ul>
-
-                <Pagination pageObject={pageObject} changeCurrentPage={this.changeCurrentPage}/>
-            </Container>
-        </div>
-        )
+                        <h4 className="text-center">Currently there is no deck</h4>
+                    </Container>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <Header imageURL={"https://wallpapercave.com/wp/WrJR9yU.jpg"} headerText={"DECK LIST"}/>
+    
+                    <Container className="section-padding">
+                        {displayUtilsBox()}
+    
+                        <ul className="list-group">
+                            {currentDecks}
+                        </ul>
+    
+                        <Pagination pageObject={pageObject} changeCurrentPage={this.changeCurrentPage}/>
+                    </Container>
+                </div>
+            )
+        }
     }
 }
 

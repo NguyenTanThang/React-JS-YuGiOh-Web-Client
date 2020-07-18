@@ -119,7 +119,7 @@ export const editTrapCard = (cardID, updatedCard) => {
                     type: SET_ERROR,
                     payload: {
                         isVisible: true,
-                        message: `Successfully updated the trap card`,
+                        message: `Successfully updated the trap card. Reload to take effect`,
                         success
                     }
                 })

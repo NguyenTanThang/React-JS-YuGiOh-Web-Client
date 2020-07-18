@@ -39,7 +39,7 @@ class DeleteTrapCard extends Component {
 
         return (
             <div>
-                <Button color="danger" onClick={toggle}>
+                <Button color="danger" onClick={toggle} className="up">
                     <i className="fas fa-trash-alt"></i>
                 </Button>
                 <Modal isOpen={modal} toggle={toggle}>

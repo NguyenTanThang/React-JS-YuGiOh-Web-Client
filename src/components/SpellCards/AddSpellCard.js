@@ -10,6 +10,8 @@ import {
 import {
     getSpellCategories
 } from "../../fetchers/categoryFetchers";
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 class AssignMonsterToCategory extends Component {
   
@@ -102,7 +104,21 @@ render(){
 
                 <FormGroup>
                     <Label htmlFor="name">Name:</Label>
-                    <textarea id="description" name="description" required placeholder="Description" value={description} onChange={onChange} className="form-control" rows="5"></textarea>
+                    <CKEditor
+                                        id="description" name="description" required
+                                        placeholder="Description"
+                                        editor={ ClassicEditor }
+                                        data={description}
+                                        onInit={ editor => {
+                                            // You can store the "editor" and use when it is needed.
+                                        } }
+                                        onChange={ ( event, editor ) => {
+                                            const textdata = editor.getData();
+                                            this.setState({
+                                                description: textdata
+                                            })
+                                        } }
+                                    />
                 </FormGroup>
 
                 <FormGroup>

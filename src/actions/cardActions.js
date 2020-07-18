@@ -182,7 +182,7 @@ export const editCard = (cardID, updatedCard) => {
                     type: SET_ERROR,
                     payload: {
                         isVisible: true,
-                        message: `The card is successfully updated`,
+                        message: `The card is successfully updated. Reload to take effect`,
                         success
                     }
                 })

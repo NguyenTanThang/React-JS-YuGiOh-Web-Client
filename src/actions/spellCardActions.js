@@ -119,7 +119,7 @@ export const editSpellCard = (cardID, updatedCard) => {
                     type: SET_ERROR,
                     payload: {
                         isVisible: true,
-                        message: `The spell card is successfully updated`,
+                        message: `The spell card is successfully updated. Reload to take effect`,
                         success
                     }
                 })

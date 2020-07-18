@@ -134,7 +134,7 @@ class CardItem extends Component {
                         <li>ATK {atk}</li>
                         <li>DEF {def}</li>
                     </ul>
-                    <p>{description}</p>
+                    <div dangerouslySetInnerHTML={{__html: description}} />
                 </div>
             </div>
         )

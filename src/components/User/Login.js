@@ -44,7 +44,7 @@ class Login extends Component {
                 
                     <FormGroup>
                         <div className="form-prefix">
-                            <i className="fas fa-user"></i>
+                            <i className="fas fa-at"></i>
                         </div>
                         <Input id="email" name="email" required placeholder="Email" value={email} onChange={onChange}/>
                     </FormGroup>

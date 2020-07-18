@@ -14,6 +14,7 @@ import {
 import {connect} from "react-redux";
 import CardItem from "./CardItem";
 import Header from "../Partials/Header";
+import Loading from "../Partials/Loading";
 import {Container, Form, Input, Button, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 import {Link} from "react-router-dom";
 import Pagination from "../Partials/Pagination";
@@ -338,7 +339,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
     return {
-        cards: state.cardReducer.cards
+        cards: state.cardReducer.cards,
+        //loading: state.loadingReducer.loading
     }
 }
 

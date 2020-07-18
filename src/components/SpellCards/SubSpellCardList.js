@@ -31,7 +31,7 @@ class SubSpellCardList extends Component {
         currentCards = currentCards.slice(pageObject.startIndex, pageObject.endIndex + 1);
 
         currentCards = currentCards.map((cardItem, index) => {
-            return <SpellCardItem deckID={deckID} isAll={false} cardItem={cardItem} key={index}/>
+            return <SpellCardItem deckID={deckID} isAll={false} cardItem={cardItem} key={`deck-spell-card-${currentPage}-${index}`}/>
         })
 
         if (currentCards.length === 0) {

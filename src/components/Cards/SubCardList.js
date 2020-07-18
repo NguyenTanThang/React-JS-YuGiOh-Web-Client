@@ -48,7 +48,8 @@ class SubCardList extends Component {
         currentCards = currentCards.slice(pageObject.startIndex, pageObject.endIndex + 1);
 
         currentCards = currentCards.map((cardItem, index) => {
-            return <CardItem deckID={deckID} isAll={false} cardItem={cardItem} key={index}/>
+            console.log(`deck-monster-card-${index}`)
+            return <CardItem deckID={deckID} isAll={false} cardItem={cardItem} key={`deck-monster-card-${currentPage}-${index}`}/>
         })
 
         if (currentCards.length === 0) {

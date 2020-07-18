@@ -31,7 +31,7 @@ class CardList extends Component {
         currentCards = currentCards.slice(pageObject.startIndex, pageObject.endIndex + 1);
 
         currentCards = currentCards.map((cardItem, index) => {
-            return <TrapCardItem deckID={deckID} cardItem={cardItem} key={index}/>
+            return <TrapCardItem deckID={deckID} cardItem={cardItem} key={`deck-trap-card-${currentPage}-${index}`}/>
         })
 
         if (currentCards.length === 0) {

@@ -9,8 +9,11 @@ import {
     getAllTypes
 } from "../../fetchers/typeFetchers";
 import {connect} from "react-redux";
+import Header from "../Partials/Header";
 import {Container, Form, Input, Label, Button, FormGroup} from "reactstrap";
 import {Link} from "react-router-dom";
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 class AddCard extends Component {
 
@@ -86,6 +89,9 @@ class AddCard extends Component {
         const {name, type, attribute, description, levels, atk, def, imageURL} = this.state;
 
         return (
+        <div>
+            <Header imageURL={"https://wallpaperaccess.com/full/1300535.jpg"} headerText={"CREATE MONSTER CARD"}/>
+
             <Container className="section-padding">
             <div className="form-container">
                 <Form onSubmit={onSubmit}>
@@ -139,7 +145,21 @@ class AddCard extends Component {
 
                     <FormGroup>
                         <Label htmlFor="description">Description:</Label>
-                        <textarea id="description" name="description" required placeholder="Description" value={description} onChange={onChange} className="form-control" rows="5"></textarea>
+                        <CKEditor
+                            id="description" name="description" required
+                            placeholder="Description"
+                            editor={ ClassicEditor }
+                            data={description}
+                            onInit={ editor => {
+                                // You can store the "editor" and use when it is needed.
+                            } }
+                            onChange={ ( event, editor ) => {
+                                const textdata = editor.getData();
+                                this.setState({
+                                    description: textdata
+                                })
+                            } }
+                        />
                     </FormGroup>
 
                     <FormGroup>
@@ -150,6 +170,7 @@ class AddCard extends Component {
                 </Form>
             </div>
             </Container>
+            </div>
         )
     }
 }

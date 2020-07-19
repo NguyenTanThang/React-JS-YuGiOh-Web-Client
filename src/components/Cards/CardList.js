@@ -14,7 +14,6 @@ import {
 import {connect} from "react-redux";
 import CardItem from "./CardItem";
 import Header from "../Partials/Header";
-import Loading from "../Partials/Loading";
 import {Container, Form, Input, Button, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 import {Link} from "react-router-dom";
 import Pagination from "../Partials/Pagination";
@@ -55,6 +54,9 @@ class MonsterCardSearchEngine extends Component {
     const attributeList = await getAllAttributes();
     const typeList = await getAllTypes();
     const categoryList = await getAllCategories();
+    localStorage.setItem("attributeList", JSON.stringify(attributeList))
+    localStorage.setItem("typeList", JSON.stringify(typeList))
+    localStorage.setItem("categoryList", JSON.stringify(categoryList))
     this.setState({
         attributeList,
         typeList,
@@ -162,6 +164,7 @@ render(){
       } = this.props;
       const {toggle, onChange, onSubmit, displayTypeOptions, displayAttributeOptions, onReset, displayCategoryOptions} = this;
       const {modal, searched_name, typeID, attributeID, min_atk, max_atk, min_def, max_def, min_levels, max_levels, description, categoryID} = this.state;
+
 
       return (
         <div>
@@ -299,11 +302,14 @@ class CardList extends Component {
     }
 
     displayAphabeticalOrder = () => {
+        const sortCriteria = ["A - Z", "Z - A", "Level - (High to Low)", "Level - (Low to High)", "ATK - (High to Low)", "ATK - (Low to High)", "DEF - (High to Low)", "DEF - (Low to High)", "By Attribute", "By Type", "By Category"]
+        
         return (
             <>
-                <option value={""} key={""} disabled>--Aphabetical Order--</option>
-                <option value={"A - Z"} key={"A - Z"}>{"A - Z"}</option>
-                <option value={"Z - A"} key={"Z - A"}>{"Z - A"}</option>
+                <option value={""} key={""} disabled>--Sorter--</option>
+                {sortCriteria.map(sortItem => {
+                    return <option value={sortItem} key={sortItem}>{sortItem}</option>
+                })}
             </>
         )
     }
@@ -319,6 +325,7 @@ class CardList extends Component {
 
     render() {
         const {cards} = this.props;
+        
         const {currentPage, searchObject, aphabeticalOrder} = this.state;
         const {onSearch, displayAphabeticalOrder, onChange, clearSearchObject, isSearchObjectEmpty} = this;
         let currentCards = cards;
@@ -374,7 +381,6 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
     return {
         cards: state.cardReducer.cards,
-        //loading: state.loadingReducer.loading
     }
 }
 

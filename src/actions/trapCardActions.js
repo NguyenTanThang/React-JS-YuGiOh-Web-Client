@@ -3,8 +3,6 @@ import {
     ADD_TRAP_CARD,
     DELETE_TRAP_CARD,
     EDIT_TRAP_CARD,
-    CLEAR_LOADING,
-    SET_LOADING,
     SET_ERROR,
 } from "./types";
 import {
@@ -15,23 +13,15 @@ import axios from "axios";
 export const getAllTrapCards = () => {
     return async (dispatch) => {
         try {
-            dispatch({
-                type: SET_LOADING
-            })
-
             const res = await axios.get(`${MAIN_PROXY_URL}/trap-cards`);
     
             const cards = res.data.data;
     
-            dispatch({
+            return dispatch({
                 type: GET_ALL_TRAP_CARDS,
                 payload: {
                     cards
                 }
-            })
-
-            return dispatch({
-                type: CLEAR_LOADING
             })
         } catch (error) {
             const message = error.response.data.message;

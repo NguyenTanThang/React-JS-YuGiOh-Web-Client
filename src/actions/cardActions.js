@@ -4,8 +4,6 @@ import {
     DELETE_CARD,
     EDIT_CARD,
     ASSIGN_MONSTER_TO_CATEGORY,
-    CLEAR_LOADING,
-    SET_LOADING,
     SET_ERROR,
 } from "./types";
 import {
@@ -16,22 +14,15 @@ import axios from "axios";
 export const getAllCards = () => {
     return async (dispatch) => {
         try {
-            dispatch({
-                type: SET_LOADING
-            })
             const res = await axios.get(`${MAIN_PROXY_URL}/cards`);
 
             const cards = res.data.data;
 
-            dispatch({
+            return dispatch({
                 type: GET_ALL_CARDS,
                 payload: {
                     cards
                 }
-            })
-
-            return dispatch({
-                type: CLEAR_LOADING
             })
         } catch (error) {
             const message = error.response.data.message;

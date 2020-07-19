@@ -3,8 +3,6 @@ import {
     ADD_SPELL_CARD,
     EDIT_SPELL_CARD,
     DELETE_SPELL_CARD,
-    CLEAR_LOADING,
-    SET_LOADING,
     SET_ERROR,
 } from "./types";
 import {
@@ -15,10 +13,6 @@ import axios from "axios";
 export const getAllSpellCards = () => {
     return async (dispatch) => {
         try {
-            dispatch({
-                type: SET_LOADING
-            })
-
             const res = await axios.get(`${MAIN_PROXY_URL}/spell-cards`);
     
             const cards = res.data.data;
@@ -28,10 +22,6 @@ export const getAllSpellCards = () => {
                 payload: {
                     cards
                 }
-            })
-
-            return dispatch({
-                type: CLEAR_LOADING
             })
         } catch (error) {
             const message = error.response.data.message;

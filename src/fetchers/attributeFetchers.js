@@ -7,9 +7,9 @@ export const getAllAttributes = async () => {
     try {
         const res = await axios.get(`${MAIN_PROXY_URL}/attributes`);
     
-            const attributes = res.data.data;
+        const attributes = res.data.data;
     
-            return attributes;
+        return attributes;
     } catch (error) {
         
     }

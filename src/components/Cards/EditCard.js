@@ -83,6 +83,10 @@ class EditCard extends Component {
         if (loading) {
             return <p>Loading...</p>
         }
+
+        if (categoryList.length === 0) {
+            return <p>This card does not belong to any category</p>
+        }
         
         return categoryList.map((categoryItem, index) => {
             const categoryID = categoryItem._id

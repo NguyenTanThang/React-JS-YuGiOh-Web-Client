@@ -11,8 +11,6 @@ import {
     REMOVE_MONSTER_CARD_OF_DECK,
     REMOVE_SPELL_CARD_OF_DECK,
     REMOVE_TRAP_CARD_OF_DECK,
-    CLEAR_LOADING,
-    SET_LOADING,
     SET_ERROR,
 } from "./types";
 import {
@@ -23,23 +21,15 @@ import axios from "axios";
 export const getAllDecks = () => {
     return async (dispatch) => {
         try {
-            dispatch({
-                type: SET_LOADING
-            })
-
             const res = await axios.get(`${MAIN_PROXY_URL}/decks`);
     
             const decks = res.data.data;
     
-            dispatch({
+            return dispatch({
                 type: GET_ALL_DECKS,
                 payload: {
                     decks
                 }
-            })
-
-            return dispatch({
-                type: CLEAR_LOADING
             })
         } catch (error) {
             const message = error.response.data.message;
@@ -58,24 +48,16 @@ export const getAllDecks = () => {
 export const getDecksByUserID = () => {
     return async (dispatch) => {
         try {
-            dispatch({
-                type: SET_LOADING
-            })
-
             const userID = localStorage.getItem("userID")
             const res = await axios.get(`${MAIN_PROXY_URL}/decks/user/${userID}`);
     
             const decks = res.data.data;
     
-            dispatch({
+            return dispatch({
                 type: GET_DECKS_BY_USER_ID,
                 payload: {
                     userDecks: decks
                 }
-            })
-
-            return dispatch({
-                type: CLEAR_LOADING
             })
         } catch (error) {
             const message = error.response.data.message;

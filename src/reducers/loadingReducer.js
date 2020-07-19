@@ -4,7 +4,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
-    loading: false,
+    loading: false
 }
 
 const loadingReducer = (state = initialState, action) => {

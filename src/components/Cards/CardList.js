@@ -67,7 +67,7 @@ class MonsterCardSearchEngine extends Component {
   toggle = () => {
     const {isSearchObjectEmpty} = this.props;
 
-    if (isSearchObjectEmpty){
+    if (!isSearchObjectEmpty){
         this.setState({
             searched_name: "",
             typeID: "",

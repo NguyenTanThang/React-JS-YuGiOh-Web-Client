@@ -137,19 +137,39 @@ export const alphabeticalOrderSorter = (list, aphabeticalOrder) => {
     }
 
     if (aphabeticalOrder === "ATK - (High to Low)") {
-        list = list.sort((a, b) => b.atk - a.atk)
+        list = list.sort((a, b) => {
+            if (a.atk === b.atk){
+                return b.def - a.def
+            }
+            return b.atk - a.atk
+        })
     }
 
     if (aphabeticalOrder === "ATK - (Low to High)") {
-        list = list.sort((a, b) => a.atk - b.atk)
+        list = list.sort((a, b) => {
+            if (a.atk === b.atk){
+                return a.def - b.def
+            }
+            return a.atk - b.atk
+        })
     }
 
     if (aphabeticalOrder === "DEF - (High to Low)") {
-        list = list.sort((a, b) => b.def - a.def)
+        list = list.sort((a, b) => {
+            if (a.def === b.def){
+                return b.atk - a.atk
+            }
+            return b.def - a.def
+        })
     }
 
     if (aphabeticalOrder === "DEF - (Low to High)") {
-        list = list.sort((a, b) => a.def - b.def)
+        list = list.sort((a, b) => {
+            if (a.def === b.def){
+                return a.atk - b.atk
+            }
+            return a.def - b.def
+        })
     }
 
     if (aphabeticalOrder === "By Attribute") {
@@ -165,6 +185,16 @@ export const alphabeticalOrderSorter = (list, aphabeticalOrder) => {
     if (aphabeticalOrder === "By Category"){ 
         list = list.sort((a, b) => a.name.localeCompare(b.name))
         list = sortByCategory(list)
+    }
+
+    if (aphabeticalOrder === "By Category (Trap)"){
+        list = list.sort((a, b) => a.name.localeCompare(b.name))
+        list = sortByTrapCategory(list)
+    }
+
+    if (aphabeticalOrder === "By Category (Spell)"){
+        list = list.sort((a, b) => a.name.localeCompare(b.name))
+        list = sortBySpellCategory(list)
     }
 
     return list;
@@ -216,6 +246,46 @@ const sortByCategory = (list) => {
         for (let j = 0; j < list.length; j++) {
             const card = list[j];
             if (card.categoryIDs.includes(category._id)) {
+                if (!returnedList.includes(card)) {
+                    returnedList.push(card)
+                }
+            }
+        }
+    }
+
+    return returnedList;
+}
+
+const sortByTrapCategory = (list) => {
+    let returnedList = [];
+
+    var categories = JSON.parse(localStorage.getItem("trapCategories"));
+
+    for (let index = 0; index < categories.length; index++) {
+        const category = categories[index];
+        for (let j = 0; j < list.length; j++) {
+            const card = list[j];
+            if (card.categoryID === category._id) {
+                if (!returnedList.includes(card)) {
+                    returnedList.push(card)
+                }
+            }
+        }
+    }
+
+    return returnedList;
+}
+
+const sortBySpellCategory = (list) => {
+    let returnedList = [];
+
+    var categories = JSON.parse(localStorage.getItem("spellCategories"));
+
+    for (let index = 0; index < categories.length; index++) {
+        const category = categories[index];
+        for (let j = 0; j < list.length; j++) {
+            const card = list[j];
+            if (card.categoryID === category._id) {
                 if (!returnedList.includes(card)) {
                     returnedList.push(card)
                 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PaginationPopover from "./PaginationPopover";
 
 class Pagination extends Component {
 
@@ -20,11 +21,67 @@ class Pagination extends Component {
         changeCurrentPage(parseInt(gotoPage));
     }
 
+    displayFirstPagi = () => {
+        const {currentPage, totalPages} = this.props.pageObject;
+        const {changeCurrentPage} = this.props;
+
+        if (currentPage - 1 >= 2 && totalPages > 6){
+            let pageArray = [];
+            let diff = currentPage - 1;
+            
+            for (let index = 2; index < diff; index++) {
+                pageArray.push(index);         
+            }
+
+            return (
+                <>
+                    <li className="page-item">
+                        <button className="page-link" onClick={() => {changeCurrentPage(1)}}>1</button>
+                    </li>
+
+                    <li className="page-item disabled">
+                        <PaginationPopover id="FirstPagi" title="Pages" pageArray={pageArray} changeCurrentPage={changeCurrentPage}/>
+                    </li>
+                </>
+            )
+        } else {
+            return (<></>)
+        }
+    }
+
+    displayLastPagi = () => {
+        const {currentPage, totalPages} = this.props.pageObject;
+        const {changeCurrentPage} = this.props;
+
+        let pageArray = [];
+        let diff = totalPages - currentPage;
+            
+        for (let index = currentPage + 2; index < totalPages; index++) {
+            pageArray.push(index);         
+        }
+
+        if (totalPages - currentPage >= 3 && totalPages > 6){
+            return (
+                <>
+                    <li className="page-item disabled">
+                        <PaginationPopover id="LastPagi" title="Pages" pageArray={pageArray} changeCurrentPage={changeCurrentPage}/>
+                    </li>
+
+                    <li className="page-item">
+                        <button className="page-link" onClick={() => {changeCurrentPage(totalPages)}}>{totalPages}</button>
+                    </li>
+                </>
+            )
+        } else {
+            return (<></>)
+        }
+    }
+
     render() {
         console.log(this.props.pageObject)
         const {pages, currentPage, totalPages} = this.props.pageObject;
         const {changeCurrentPage} = this.props;
-        const {onChange, onGoTo} = this;
+        const {onChange, onGoTo, displayFirstPagi, displayLastPagi} = this;
         const {gotoPage} = this.state;
 
         const arrayOfPageLinks = pages.map((page) => {
@@ -47,23 +104,11 @@ class Pagination extends Component {
                 <nav aria-label="Page Navigation" >
                     <ul className="pagination justify-content-center">
 
-                        <li className="page-item">
-                            <button className="page-link" onClick={() => {changeCurrentPage(currentPage - 1)}}>Previous</button>
-                        </li>
+                        {displayFirstPagi()}
 
                         {arrayOfPageLinks}
 
-                        <li className="page-item disabled">
-                            <button className="page-link" disabled>...</button>
-                        </li>
-
-                        <li className="page-item">
-                            <button className="page-link" onClick={() => {changeCurrentPage(totalPages)}}>{totalPages}</button>
-                        </li>
-
-                        <li className="page-item">
-                            <button className="page-link" onClick={() => {changeCurrentPage(currentPage + 1)}}>Next</button>
-                        </li>
+                        {displayLastPagi()}
 
                     </ul>
                 </nav>

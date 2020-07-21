@@ -69,11 +69,6 @@ const Navigator = (props) => {
               }}>Trap Cards</Link>
             </NavItem>
             {displayNavItems()}
-            <NavItem>
-              <NavLink target="_blank" href="https://github.com/NguyenTanThang/React-JS-YuGiOh-Web-Client" onClick={e => {
-                closeTheNav()
-              }}>GitHub</NavLink>
-            </NavItem>
           </Nav>
         </Collapse>
         </Container>

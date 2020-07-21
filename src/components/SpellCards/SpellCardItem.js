@@ -66,6 +66,15 @@ class SpellCardItem extends Component {
             return (
                 <div className="item-utils-box">
                     <RemoveSpellCardFromDeck cardItem={this.props.cardItem} deckID={deckID}/>
+                    <EditSpellCard cardItem={cardItem}/>
+                </div>
+            )
+        }
+        else if (!isAll && userID && deckID) {
+            return (
+                <div className="item-utils-box">
+                    <RemoveSpellCardFromDeck cardItem={this.props.cardItem} deckID={deckID}/>
+                    <EditSpellCard cardItem={cardItem}/>
                 </div>
             )
         }

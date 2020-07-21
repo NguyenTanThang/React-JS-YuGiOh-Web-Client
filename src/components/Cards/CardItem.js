@@ -91,13 +91,13 @@ class CardItem extends Component {
         const {isAll, cardItem, deckID, userDecks} = this.props;
         const owned = userDecks.some(userDeck => {
             return deckID === userDeck._id
-            });
+        });
         const userID = localStorage.getItem("userID");
         if (isAll && userID){
             return (
                 <div className="item-utils-box">
                     <AssignMonsterCardToDeck cardItem={this.props.cardItem}/>
-                    <EditCard cardItem={cardItem}/>
+                    <EditCard key={"all"} cardItem={cardItem}/>
                     <DeleteCard cardItem={cardItem}/>
                     <AssignMonsterToCategory cardItem={cardItem} />
                 </div>
@@ -107,6 +107,17 @@ class CardItem extends Component {
             return (
                 <div className="item-utils-box">
                     <RemoveCardFromDeck cardItem={this.props.cardItem} deckID={deckID}/>
+                    <EditCard key={"all-owned"} cardItem={cardItem}/>
+                    <AssignMonsterToCategory cardItem={cardItem} />
+                </div>
+            )
+        }
+        else if (!isAll && userID && deckID) {
+            return (
+                <div className="item-utils-box">
+                    <RemoveCardFromDeck cardItem={this.props.cardItem} deckID={deckID}/>
+                    <EditCard key={"all-in-deck"} cardItem={cardItem}/>
+                    <AssignMonsterToCategory cardItem={cardItem} />
                 </div>
             )
         }

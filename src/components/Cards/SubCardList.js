@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
+import {
+    getAllCards
+} from "../../actions/cardActions";
+import {connect} from "react-redux";
 import CardItem from "./CardItem";
-import {Container, FormGroup} from "reactstrap";
+import Header from "../Partials/Header";
+import {Container, Button, FormGroup} from "reactstrap";
+import {Link} from "react-router-dom";
 import Pagination from "../Partials/Pagination";
 import paginate from "../../utils/pagination";
-import {alphabeticalOrderSorter} from "../../sorters/cardSorters";
+import {monsterCardSorter, alphabeticalOrderSorter} from "../../sorters/cardSorters";
+import MonsterCardSearchEngine from "./MonsterCardSearchEngine"
 
 class SubCardList extends Component {
 
     state = {
         currentPage: 1,
+        searchObject: {},
         aphabeticalOrder: "A - Z"
     }
 
@@ -18,29 +26,50 @@ class SubCardList extends Component {
         })
     }
 
+    onSearch = (searchObject) => {
+        this.setState({
+            searchObject
+        })
+    }
+
+    clearSearchObject = () => {
+        this.setState({
+            searchObject: {}
+        })
+    }
+
+    setAlphabeticalOrder = (aphabeticalOrder) => {
+        this.setState({
+            aphabeticalOrder
+        })
+    }
+
+    isSearchObjectEmpty = () => {
+        const {searchObject} = this.state;
+        const obj = searchObject;
+        for(var prop in obj) {
+            if(obj.hasOwnProperty(prop)) {
+              return false;
+            }
+          }
+        
+        return JSON.stringify(obj) === JSON.stringify({});
+    }
+
     onChange = (e) => {
         this.setState({
             [e.target.id]: e.target.value
         })
     }
 
-    displayAphabeticalOrder = () => {
-        return (
-            <>
-                <option value={""} key={""} disabled>--Aphabetical Order--</option>
-                <option value={"A - Z"} key={"A - Z"}>{"A - Z"}</option>
-                <option value={"Z - A"} key={"Z - A"}>{"Z - A"}</option>
-            </>
-        )
-    }
-
     render() {
-        const {cards} = this.props;
-        const {currentPage, aphabeticalOrder} = this.state;
-        const {displayAphabeticalOrder, onChange} = this;
-        let currentCards = cards;
         const deckID = this.props.deckID;
+        const {cards} = this.props;
+        const {currentPage, searchObject, aphabeticalOrder} = this.state;
+        const {onSearch, clearSearchObject, isSearchObjectEmpty, setAlphabeticalOrder} = this;
+        let currentCards = cards;
 
+        currentCards = monsterCardSorter(currentCards, searchObject)
         currentCards = alphabeticalOrderSorter(currentCards, aphabeticalOrder)
 
         const pageObject = paginate(currentCards.length, currentPage, 5, 4)
@@ -48,7 +77,7 @@ class SubCardList extends Component {
         currentCards = currentCards.slice(pageObject.startIndex, pageObject.endIndex + 1);
 
         currentCards = currentCards.map((cardItem, index) => {
-            return <CardItem deckID={deckID} isAll={false} cardItem={cardItem} key={`deck-monster-card-${currentPage}-${index}`}/>
+            return <CardItem deckID={deckID} isAll={false} cardItem={cardItem} key={`deck-monster-card-${currentPage}-${index}-${cardItem._id}`}/>
         })
 
         if (currentCards.length === 0) {
@@ -61,6 +90,12 @@ class SubCardList extends Component {
 
         return (
             <div className="section-padding">
+                <div className="utils">
+                    <MonsterCardSearchEngine isSearchObjectEmpty={isSearchObjectEmpty} onSearch={onSearch}setAlphabeticalOrder={setAlphabeticalOrder}/>
+                    
+                    {!isSearchObjectEmpty() ? <Button onClick={clearSearchObject}>Reset Search Criteria</Button> : <></>}
+                </div>
+
                 <ul className="list-group">
                     {currentCards}
                 </ul>

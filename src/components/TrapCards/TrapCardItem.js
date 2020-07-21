@@ -66,6 +66,15 @@ class CardItem extends Component {
             return (
                 <div className="item-utils-box">
                     <RemoveTrapCardFromDeck cardItem={this.props.cardItem} deckID={deckID}/>
+                    <EditTrapCard cardItem={cardItem}/>
+                </div>
+            )
+        }
+        else if (!isAll && userID && deckID) {
+            return (
+                <div className="item-utils-box">
+                    <RemoveTrapCardFromDeck cardItem={this.props.cardItem} deckID={deckID}/>
+                    <EditTrapCard cardItem={cardItem}/>
                 </div>
             )
         }

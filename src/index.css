@@ -83,6 +83,10 @@
   font-size: 2rem;
 }
 
+.search-engine-box .form-group {
+  margin-left: 20px;
+}
+
 /*Text Glitch Effect*/
 .glitch-text {
   font-weight: bold;
@@ -308,12 +312,18 @@ body {
   display: flex;
 }
 
-.pagination li button {
+.pagination li button, .popover-page-button {
   background-color: #444B6E;
   padding: 5px 10px;
   border: 2px solid #3D315B !important;
   border-right: 0;
   color: #FFF;
+  border-radius: 0;
+}
+
+.popover-page-button {
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .pagination li.active button {
@@ -506,6 +516,12 @@ body {
 }
 
 @media (min-width: 320px) and (max-width: 1024px) {
+  .search-engine-box .form-group {
+    margin-left: 0;
+    width: 100%;
+    margin-top: 20px;
+  }
+
   .item-utils-box {
     position: static;
     width: 100%;

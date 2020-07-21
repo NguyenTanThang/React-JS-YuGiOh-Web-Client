@@ -35,7 +35,7 @@ class DeckDetails extends Component {
                 deck, spellCards, trapCards, monsterCards,
                 loading: false
             })
-        }, 1000)
+        }, 2000)
     }
 
     render() {

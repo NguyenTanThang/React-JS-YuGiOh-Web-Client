@@ -10,7 +10,8 @@ import Header from "../Partials/Header";
 import AddDeck from "./AddDeck";
 import Pagination from "../Partials/Pagination";
 import paginate from "../../utils/pagination";
-
+import ChangeProfile from "../User/ChangeProfile";
+ 
 class DeckList extends Component {
 
     state = {
@@ -48,6 +49,8 @@ class DeckList extends Component {
                 <div className="utils">
                     <AddDeck/>
                     <Link to="/decks/all" className="btn btn-info">View All Decks</Link>
+                    <Link to="/users/change-password" className="btn btn-light">Change Password</Link>
+                    <ChangeProfile/>
                 </div>
             )
         }

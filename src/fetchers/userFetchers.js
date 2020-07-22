@@ -15,3 +15,15 @@ export const getCurrentUser = async () => {
         
     }
 }
+
+export const getUserByID = async (userID) => {
+    try {
+        const res = await axios.get(`${MAIN_PROXY_URL}/users/${userID}`);
+    
+        const user = res.data.data;
+    
+        return user;
+    } catch (error) {
+        
+    }
+}

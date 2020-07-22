@@ -1,4 +1,6 @@
 import {
+    CHANGE_PASSWORD,
+    CHANGE_PROFILE,
     LOGIN,
     LOGOUT,
     SIGNUP
@@ -11,6 +13,8 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOGIN:
+        case CHANGE_PASSWORD:
+        case CHANGE_PROFILE:
             return {
                 ...state,
                 userID: action.payload.user._id

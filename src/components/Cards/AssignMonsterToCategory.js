@@ -67,15 +67,18 @@ class AssignMonsterToCategory extends Component {
   displayCategoryOptions = () => {
     let categoryList = this.state.categoryList;
     const cards = this.props.cards;
-    const cardID = this.state.cardID;
+    const cardID = this.props.cardItem.cardID;
 
     if (cardID) {
         const card = cards.filter(cardItem => {
             return cardItem._id === cardID;
         })[0];
-        return categoryList.filter(categoryItem => {
+
+        categoryList.filter(categoryItem => {
             return !card.categoryIDs.includes(categoryItem._id);
-        }).map(categoryItem => {
+        })
+        
+        return categoryList.map(categoryItem => {
                 return (
                     <option key={categoryItem._id} value={categoryItem._id}>
                         {categoryItem.name}

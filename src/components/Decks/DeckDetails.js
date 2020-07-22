@@ -5,6 +5,9 @@ import DeckTabs from "../Partials/DeckTabs";
 import Header from "../Partials/Header";
 import Loading from "../Partials/Loading";
 import { Link } from 'react-router-dom';
+import {
+    getUserByID
+} from "../../fetchers/userFetchers";
 
 class DeckDetails extends Component {
 
@@ -13,6 +16,7 @@ class DeckDetails extends Component {
         spellCards: [],
         trapCards: [],
         monsterCards: [],
+        user: {},
         loading: true
     }
 
@@ -30,16 +34,17 @@ class DeckDetails extends Component {
 
         setTimeout(() => {
             console.log(this.props.deck);
-            const {deck, spellCards, trapCards, monsterCards} = this.props.deck;
+            const {deck, spellCards, trapCards, monsterCards, user} = this.props.deck;
             this.setState({
                 deck, spellCards, trapCards, monsterCards,
+                user,
                 loading: false
             })
-        }, 2000)
+        }, 2600)
     }
 
     render() {
-        const {deck, spellCards, trapCards, monsterCards, loading} = this.state;
+        const {deck, spellCards, trapCards, monsterCards, loading, user} = this.state;
         const deckID = this.props.match.params.deckID;
 
         if (loading) {
@@ -48,14 +53,14 @@ class DeckDetails extends Component {
 
         return (
             <div>
-                <Header imageURL={"https://wallpapercave.com/wp/WrJR9yU.jpg"} headerText={`DECK NAME: "${deck.name}"`}/>
-            <div className="container" style={{marginBottom: "50px", marginTop: "50px"}}>
-                <div className="utils">
-                    <Link className="btn btn-info" to="/profile">Back</Link>
-                </div>
+                <Header imageURL={"https://wallpapercave.com/wp/WrJR9yU.jpg"} headerText={`DECK NAME: "${deck.name}"`} authorName={user}/>
+                <div className="container" style={{marginBottom: "50px", marginTop: "50px"}}>
+                    <div className="utils">
+                        <Link className="btn btn-info" to="/profile">Back</Link>
+                    </div>
 
-                <DeckTabs deckID={deckID} spellCards={spellCards} trapCards={trapCards} monsterCards={monsterCards}/>
-            </div>
+                    <DeckTabs deckID={deckID} spellCards={spellCards} trapCards={trapCards} monsterCards={monsterCards}/>
+                </div>
             </div>
         )
     }

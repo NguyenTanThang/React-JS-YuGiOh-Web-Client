@@ -5,6 +5,7 @@ import Navigator from "./components/Partials/Navbar";
 import MessageAlert from "./components/Partials/MessageAlert";
 import Signup from "./components/User/Signup";
 import Login from "./components/User/Login";
+import ChangePassword from "./components/User/ChangePassword";
 import Profile from "./components/User/Profile";
 import AllDecks from "./components/Decks/AllDecks";
 import Logout from "./components/User/Logout";
@@ -27,6 +28,7 @@ function App() {
           <Route path="/add-monster-card" component={AddCard} />
           <Route path="/users/signup" component={Signup} />
           <Route path="/users/login" component={Login} />
+          <Route path="/users/change-password" component={ChangePassword} />
           <Route path="/users/logout" component={Logout} />
           <Route path="/profile" component={Profile} />
           <Route path="/decks/all" component={AllDecks} />

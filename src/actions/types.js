@@ -13,6 +13,8 @@ export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const SIGNUP = "SIGNUP";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
+export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
+export const CHANGE_PROFILE = "CHANGE_PROFILE";
 
 export const GET_ALL_CARDS = "GET_ALL_CARDS";
 export const GET_CARD_BY_ID = "GET_CARD_BY_ID";

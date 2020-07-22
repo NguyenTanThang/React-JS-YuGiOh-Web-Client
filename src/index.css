@@ -205,6 +205,19 @@
 
 /*Header Partials*/
 
+/*Footer Partials*/
+footer {
+  padding-top: 20px;
+  text-align: center;
+  border-top: 1px solid #000;
+}
+
+footer h6 {
+  font-weight: bold;
+}
+
+/*Footer Partials*/
+
 /*Button Hover Effect*/
 .fill:hover,
 .fill:focus {

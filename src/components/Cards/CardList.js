@@ -20,7 +20,7 @@ class CardList extends Component {
         aphabeticalOrder: "A - Z"
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.props.getAllCards();
     }
 
@@ -76,7 +76,10 @@ class CardList extends Component {
         currentCards = monsterCardSorter(currentCards, searchObject)
         currentCards = alphabeticalOrderSorter(currentCards, aphabeticalOrder)
 
-        const pageObject = paginate(currentCards.length, currentPage, 5, 3)
+        let pageObject = paginate(currentCards.length, currentPage, 5, 3)
+        if (pageObject.totalPages <= 6){
+            pageObject = paginate(currentCards.length, currentPage, 5, 6)
+        }
 
         currentCards = currentCards.slice(pageObject.startIndex, pageObject.endIndex + 1);
 

@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import Navigator from "./components/Partials/Navbar";
+import Footer from "./components/Partials/Footer";
 import MessageAlert from "./components/Partials/MessageAlert";
 import Signup from "./components/User/Signup";
 import Login from "./components/User/Login";
@@ -34,6 +35,7 @@ function App() {
           <Route path="/decks/all" component={AllDecks} />
           <Route path="/decks/details/:deckID" component={DeckDetails} />
         </Switch>
+        <Footer/>
       </Router>
     </div>
   );

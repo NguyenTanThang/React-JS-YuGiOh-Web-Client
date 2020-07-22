@@ -68,7 +68,10 @@ class DeckList extends Component {
         const {displayUtilsBox} = this;
         let currentDecks = decks;
 
-        const pageObject = paginate(currentDecks.length, currentPage, 5, 5)
+        let pageObject = paginate(currentDecks.length, currentPage, 5, 3)
+        if (pageObject.totalPages <= 6){
+            pageObject = paginate(currentDecks.length, currentPage, 5, 6)
+        }
 
         currentDecks = currentDecks.slice(pageObject.startIndex, pageObject.endIndex + 1);
 

@@ -60,7 +60,7 @@ class Pagination extends Component {
             pageArray.push(index);         
         }
 
-        if (totalPages - currentPage >= 3 && totalPages > 6){
+        if (totalPages - currentPage >= 2 && totalPages > 6){
             return (
                 <>
                     <li className="page-item disabled">

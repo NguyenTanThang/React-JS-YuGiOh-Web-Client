@@ -92,7 +92,9 @@ class CardItem extends Component {
                 {displayIndividualUtilsBox()}
                 <img className="img-fluid" alt={name} src={imageURL}/>
                 <div className="card-desc">
-                    <h4>{name}</h4>
+                    <a href={imageURL} target="_blank" alt={`${name}'s image`}>
+                        <h4>{name}</h4>
+                    </a>
                     {displayTrapCardCategory()}
                     <div dangerouslySetInnerHTML={{__html: description}} />
                 </div>

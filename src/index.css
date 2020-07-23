@@ -473,6 +473,7 @@ body {
 }
 
 .card-desc {
+  flex: 80%;
   margin-left: 20px;
 }
 
@@ -571,8 +572,6 @@ body {
 }
 
 @media (min-width: 320px) and (max-width: 1024px) {
-
-
   .search-engine-box .form-group {
     margin-left: 0;
     width: 100%;

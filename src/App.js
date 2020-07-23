@@ -11,7 +11,7 @@ import Profile from "./components/User/Profile";
 import AllDecks from "./components/Decks/AllDecks";
 import Logout from "./components/User/Logout";
 import CardList from "./components/Cards/CardList";
-import AddCard from "./components/Cards/AddCard";
+import AddMonsterCardPage from "./pages/AddMonsterCardPage";
 import SpellCardList from "./components/SpellCards/SpellCardList";
 import TrapCardList from "./components/TrapCards/TrapCardList";
 import DeckDetails from "./components/Decks/DeckDetails";
@@ -26,7 +26,7 @@ function App() {
           <Route path="/" exact component={CardList} />
           <Route path="/spell-cards" exact component={SpellCardList} />
           <Route path="/trap-cards" exact component={TrapCardList} />
-          <Route path="/add-monster-card" component={AddCard} />
+          <Route path="/add-monster-card" component={AddMonsterCardPage} />
           <Route path="/users/signup" component={Signup} />
           <Route path="/users/login" component={Login} />
           <Route path="/users/change-password" component={ChangePassword} />

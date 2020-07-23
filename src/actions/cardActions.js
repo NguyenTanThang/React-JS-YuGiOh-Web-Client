@@ -50,7 +50,9 @@ export const addCard = (newCard) => {
                 atk,
                 def,
                 imageURL,
-                categoryID
+                categoryID,
+                pendulumScale,
+                pendulumDescription
             } = newCard;
             const res = await axios.post(`${MAIN_PROXY_URL}/cards/add`, {
                 name,
@@ -61,7 +63,9 @@ export const addCard = (newCard) => {
                 atk,
                 def,
                 imageURL,
-                categoryID
+                categoryID,
+                pendulumScale,
+                pendulumDescription
             });
 
             const {success} = res.data;
@@ -147,7 +151,9 @@ export const editCard = (cardID, updatedCard) => {
                 atk,
                 def,
                 imageURL,
-                categoryIDs
+                categoryIDs,
+                pendulumScale,
+                pendulumDescription
             } = updatedCard;
             const res = await axios.put(`${MAIN_PROXY_URL}/cards/edit/${cardID}`, {
                 name,
@@ -158,7 +164,9 @@ export const editCard = (cardID, updatedCard) => {
                 atk,
                 def,
                 imageURL,
-                categoryIDs
+                categoryIDs,
+                pendulumScale,
+                pendulumDescription
             });
 
             const {success} = res.data;

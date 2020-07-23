@@ -25,11 +25,13 @@ class AddCard extends Component {
         type: "", 
         attribute: "", 
         description: "", 
-        categoryID: "", 
+        categoryID: "5eccabefb428ef32144ccd54", 
         levels: 0, 
         atk: 0, 
         def: 0, 
         imageURL: "",
+        pendulumDescription: "",
+        pendulumScale: 0,
         typeList: [],
         attributeList: [],
         categoryList: []
@@ -63,18 +65,6 @@ class AddCard extends Component {
         })
     }
 
-    displayCategoryOptions = () => {
-        const {categoryList} = this.state;
-
-        return categoryList.map(categoryItem => {
-            return (
-                <option key={categoryItem._id} value={categoryItem._id}>
-                    {categoryItem.name}
-                </option>
-            )
-        })
-    }
-
     async componentDidMount() {
         const attributeList = await getAllAttributes();
         const typeList = await getAllTypes();
@@ -89,24 +79,26 @@ class AddCard extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         console.log(this.state);
-        const {name, type, attribute, description, levels, atk, def, imageURL, categoryID} = this.state;
-        this.props.addCard({name, type, attribute, description, levels, atk, def, imageURL, categoryID})
+        const {name, type, attribute, description, levels, atk, def, imageURL, categoryID, pendulumDescription, pendulumScale} = this.state;
+        this.props.addCard({name, type, attribute, description, levels, atk, def, imageURL, categoryID, pendulumDescription, pendulumScale})
         this.setState({
             name: "", 
             type: "", 
             attribute: "", 
             description: "", 
+            categoryID: "5eccabefb428ef32144ccd54", 
             levels: 0, 
             atk: 0, 
             def: 0, 
             imageURL: "",
-            categoryID: ""
+            pendulumDescription: "",
+            pendulumScale: 0,
         })
     }
 
     render() {
-        const {onChange, displayTypeOptions, displayAttributeOptions, onSubmit, displayCategoryOptions} = this;
-        const {name, type, attribute, description, levels, atk, def, imageURL, categoryID} = this.state;
+        const {onChange, displayTypeOptions, displayAttributeOptions, onSubmit} = this;
+        const {name, type, attribute, description, levels, atk, def, imageURL, pendulumDescription, pendulumScale} = this.state;
 
         return (
             <div className="form-container">
@@ -135,14 +127,6 @@ class AddCard extends Component {
                         </div>
                     </FormGroup>
 
-                    <FormGroup>
-                        <Label htmlFor="category">Category:</Label>
-                        <select defaultValue={categoryID} id="categoryID" name="categoryID" required value={categoryID} onChange={onChange} className="custom-select">
-                            <option value={""} disabled>--Category--</option>
-                                {displayCategoryOptions()}
-                        </select>
-                    </FormGroup>
-
                     <FormGroup className="row">
                         <div className="col-lg-6 col-md-12 col-sm-12">
                             <Label htmlFor="atk">ATK:</Label>
@@ -168,10 +152,34 @@ class AddCard extends Component {
                     </FormGroup>
 
                     <FormGroup>
-                        <Label htmlFor="description">Description:</Label>
+                        <Label htmlFor="pendulumScale">Pendulum Scale:</Label>
+                        <Input type="number" id="pendulumScale" name="pendulumScale" required placeholder="Pendulum Scale" value={pendulumScale} onChange={onChange}/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="pendulumDescription">Pendulum Description:</Label>
+                        <CKEditor
+                            id="pendulumDescription" name="pendulumDescription" required
+                            placeholder="Pendulum Description"
+                            editor={ ClassicEditor }
+                            data={pendulumDescription}
+                            onInit={ editor => {
+                                // You can store the "editor" and use when it is needed.
+                            } }
+                            onChange={ ( event, editor ) => {
+                                const textdata = editor.getData();
+                                this.setState({
+                                    pendulumDescription: textdata
+                                })
+                            } }
+                        />
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="description">Normal Description:</Label>
                         <CKEditor
                             id="description" name="description" required
-                            placeholder="Description"
+                            placeholder="Normal Description"
                             editor={ ClassicEditor }
                             data={description}
                             onInit={ editor => {

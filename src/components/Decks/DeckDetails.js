@@ -40,7 +40,7 @@ class DeckDetails extends Component {
                 user,
                 loading: false
             })
-        }, 2600)
+        }, 3000)
     }
 
     render() {

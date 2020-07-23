@@ -25,7 +25,7 @@ class AddCard extends Component {
         type: "", 
         attribute: "", 
         description: "", 
-        categoryID: "", 
+        categoryID: "5eccabefb428ef32144ccd55", 
         levels: 0, 
         atk: 0, 
         def: 0, 
@@ -63,18 +63,6 @@ class AddCard extends Component {
         })
     }
 
-    displayCategoryOptions = () => {
-        const {categoryList} = this.state;
-
-        return categoryList.map(categoryItem => {
-            return (
-                <option key={categoryItem._id} value={categoryItem._id}>
-                    {categoryItem.name}
-                </option>
-            )
-        })
-    }
-
     async componentDidMount() {
         const attributeList = await getAllAttributes();
         const typeList = await getAllTypes();
@@ -96,17 +84,17 @@ class AddCard extends Component {
             type: "", 
             attribute: "", 
             description: "", 
+            categoryID: "5eccabefb428ef32144ccd55", 
             levels: 0, 
             atk: 0, 
             def: 0, 
             imageURL: "",
-            categoryID: ""
         })
     }
 
     render() {
-        const {onChange, displayTypeOptions, displayAttributeOptions, onSubmit, displayCategoryOptions} = this;
-        const {name, type, attribute, description, levels, atk, def, imageURL, categoryID} = this.state;
+        const {onChange, displayTypeOptions, displayAttributeOptions, onSubmit} = this;
+        const {name, type, attribute, description, levels, atk, imageURL} = this.state;
 
         return (
             <div className="form-container">
@@ -136,29 +124,14 @@ class AddCard extends Component {
                     </FormGroup>
 
                     <FormGroup>
-                        <Label htmlFor="category">Category:</Label>
-                        <select defaultValue={categoryID} id="categoryID" name="categoryID" required value={categoryID} onChange={onChange} className="custom-select">
-                            <option value={""} disabled>--Category--</option>
-                                {displayCategoryOptions()}
-                        </select>
-                    </FormGroup>
-
-                    <FormGroup className="row">
-                        <div className="col-lg-6 col-md-12 col-sm-12">
                             <Label htmlFor="atk">ATK:</Label>
                             <Input type="number" id="atk" name="atk" required placeholder="ATK" value={atk} onChange={onChange}/>
-                        </div>
-
-                        <div className="col-lg-6 col-md-12 col-sm-12">
-                            <Label htmlFor="def">DEF:</Label>
-                            <Input type="number" id="def" name="def" required placeholder="DEF" value={def} onChange={onChange}/>
-                        </div>
                     </FormGroup>
 
                     <FormGroup className="row">
                         <div className="col-lg-6 col-md-12 col-sm-12">
-                            <Label htmlFor="levels">Levels:</Label>
-                            <Input id="levels" name="levels" required placeholder="Levels" value={levels} type="number" onChange={onChange}/>
+                            <Label htmlFor="levels">Link:</Label>
+                            <Input id="levels" name="levels" required placeholder="Link" value={levels} type="number" onChange={onChange}/>
                         </div>
 
                         <div className="col-lg-6 col-md-12 col-sm-12">

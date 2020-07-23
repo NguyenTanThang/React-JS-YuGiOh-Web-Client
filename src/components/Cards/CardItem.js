@@ -28,6 +28,8 @@ class CardItem extends Component {
         attribute: {},
         categoryList: [],
         loading: true,
+        link: false,
+        pendulum: false
     }
 
     async componentWillMount() {
@@ -42,6 +44,16 @@ class CardItem extends Component {
         }
         const type = await getTypeByID(typeID);
         const attribute = await getAttributeByID(attributeID);
+        if (categoryIDs.includes("5eccabefb428ef32144ccd55")){
+            this.setState({
+                link: true
+            })
+        }
+        if (categoryIDs.includes("5eccabefb428ef32144ccd54")){
+            this.setState({
+                pendulum: true
+            })
+        }
         this.setState({
             type,
             attribute,
@@ -87,6 +99,63 @@ class CardItem extends Component {
         return cardCategories
     }
 
+    displayCardLevels = () => {
+        const {levels} = this.props.cardItem;
+        const {link} = this.state;
+
+        if (link){
+            return (
+                <li>Link {levels}</li>
+            )
+        } else {
+            return (
+                <li>Levels {levels}</li>
+            )
+        }
+    }
+
+    displayCardPendulumScale = () => {
+        const {pendulumScale} = this.props.cardItem;
+        const {pendulum} = this.state;
+
+        if (pendulum && !pendulumScale) {
+            return (
+                <li style={{flex: "1"}}>No Pendulum Scale</li>
+            )
+        }
+
+        if (pendulum){
+            return (
+                <li><img className="img-fluid" alt={"Pendulum Scale"} src={"https://vignette.wikia.nocookie.net/yugioh/images/4/48/Pendulum_Scales.png/revision/latest?cb=20140603103842"}/> {pendulumScale}</li>
+            )
+        } else {
+            return (
+                <></>
+            )
+        }
+    }
+
+    displayCardPendulumDesc = () => {
+        const {pendulumDescription} = this.props.cardItem;
+        const {pendulum} = this.state;
+
+        if (pendulum && !pendulumDescription) {
+            return (
+                <li style={{flex: "1"}}>No Pendulum Description</li>
+            )
+        }
+
+        if (pendulum){
+            return (
+                <li dangerouslySetInnerHTML={{__html: pendulumDescription}}></li>
+            )
+        } else {
+            return (
+                <></>
+            )
+        }
+    }
+
     displayIndividualUtilsBox = () => {
         const {isAll, cardItem, deckID, userDecks} = this.props;
         const owned = userDecks.some(userDeck => {
@@ -127,8 +196,8 @@ class CardItem extends Component {
     }
 
     render() {
-        const {name, description, levels, atk, def, imageURL} = this.props.cardItem;
-        const {displayCardCategories, displayIndividualUtilsBox, displayCardType, displayCardAttribute} = this;
+        const {name, description, atk, def, imageURL} = this.props.cardItem;
+        const {displayCardCategories, displayIndividualUtilsBox, displayCardType, displayCardAttribute, displayCardLevels, displayCardPendulumScale, displayCardPendulumDesc} = this;
 
         return (
             <div className="card-item group-list-item">
@@ -140,9 +209,13 @@ class CardItem extends Component {
                         <li>{displayCardType()}</li>
                         <li>{displayCardCategories()}</li>
                         {displayCardAttribute()}
-                        <li>Levels {levels}</li>
+                        {displayCardLevels()}
                         <li>ATK {atk}</li>
                         <li>DEF {def}</li>
+                    </ul>
+                    <ul className="pendulum-box">
+                        {displayCardPendulumScale()}
+                        {displayCardPendulumDesc()}
                     </ul>
                     <div dangerouslySetInnerHTML={{__html: description}} />
                 </div>

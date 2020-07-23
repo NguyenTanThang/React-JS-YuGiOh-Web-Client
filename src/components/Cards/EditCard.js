@@ -29,22 +29,46 @@ class EditCard extends Component {
         atk: 0, 
         def: 0, 
         imageURL: "",
+        pendulumDescription: "",
+        pendulumScale: 0,
         typeList: [],
         attributeList: [],
         categoryIDs: [],
         categoryList: [],
-        loading: true
+        loading: true,
+        link: false,
+        pendulum: false
     }
 
     async componentDidMount() {
         const attributeList = await getAllAttributes();
         const typeList = await getAllTypes();
         let categoryList = [];
-        const {name, typeID, attributeID, description, levels, atk, def, imageURL, categoryIDs} = this.props.cardItem;
+        const {name, typeID, attributeID, description, levels, atk, def, imageURL, categoryIDs, pendulumDescription, pendulumScale} = this.props.cardItem;
         for (let index = 0; index < categoryIDs.length; index++) {
             const categoryID = categoryIDs[index];
             const category = await getCategoryByID(categoryID);
             categoryList.push(category)
+        }
+        if (categoryIDs.includes("5eccabefb428ef32144ccd55")){
+            this.setState({
+                link: true
+            })
+        }
+        if (categoryIDs.includes("5eccabefb428ef32144ccd54")){
+            if (pendulumDescription) {
+                this.setState({
+                    pendulumDescription
+                })
+            }
+            if (pendulumScale) {
+                this.setState({
+                    pendulumScale
+                })
+            }
+            this.setState({
+                pendulum: true
+            })
         }
         this.setState({
             name, type: typeID, attribute: attributeID, description, levels, atk, def, imageURL, categoryIDs,
@@ -101,6 +125,41 @@ class EditCard extends Component {
         })
     }
 
+    displayPendulumProps = () => {
+        const {pendulum, pendulumScale, pendulumDescription} = this.state;
+        const {onChange} = this;
+        
+        if (pendulum) {
+            return (
+                <>
+                    <FormGroup>
+                        <Label htmlFor="pendulumScale">Pendulum Scale:</Label>
+                        <Input type="number" id="pendulumScale" name="pendulumScale" required placeholder="Pendulum Scale" value={pendulumScale} onChange={onChange}/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="pendulumDescription">Pendulum Description:</Label>
+                        <CKEditor
+                            id="pendulumDescription" name="pendulumDescription" required
+                            placeholder="Pendulum Description"
+                            editor={ ClassicEditor }
+                            data={pendulumDescription}
+                            onInit={ editor => {
+                                // You can store the "editor" and use when it is needed.
+                            } }
+                            onChange={ ( event, editor ) => {
+                                const textdata = editor.getData();
+                                this.setState({
+                                    pendulumDescription: textdata
+                                })
+                            } }
+                        />
+                    </FormGroup>
+                </>
+            )
+        }
+    }
+
     displayTypeOptions = () => {
         const {typeList} = this.state;
 
@@ -131,16 +190,16 @@ class EditCard extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const {name, type, attribute, description, levels, atk, def, imageURL, categoryIDs} = this.state;
-        this.props.editCard(this.props.cardItem._id, {name, type, attribute, description, levels, atk, def, imageURL, categoryIDs})
+        const {name, type, attribute, description, levels, atk, def, imageURL, categoryIDs, pendulumScale, pendulumDescription} = this.state;
+        this.props.editCard(this.props.cardItem._id, {name, type, attribute, description, levels, atk, def, imageURL, categoryIDs, pendulumScale, pendulumDescription})
         this.setState({
             modal: false,
         })
     }
 
     render() {
-        const {onChange, displayTypeOptions, displayAttributeOptions, onSubmit, toggle, displayCategoryInputs} = this;
-        const {name, type, attribute, description, levels, atk, def, imageURL, modal} = this.state;
+        const {onChange, displayTypeOptions, displayAttributeOptions, onSubmit, toggle, displayCategoryInputs, displayPendulumProps} = this;
+        const {name, type, attribute, description, levels, atk, def, imageURL, modal, link} = this.state;
 
         return (
             <div>
@@ -190,7 +249,8 @@ class EditCard extends Component {
                                 </FormGroup>
 
                                 <FormGroup>
-                                    <Label htmlFor="levels">Levels:</Label>
+                                    {link ? (<Label htmlFor="levels">Link:</Label>) : (<Label htmlFor="levels">Levels:</Label>)}
+                                    
                                     <Input id="levels" name="levels" required placeholder="Levels" value={levels} type="number" onChange={onChange}/>
                                 </FormGroup>
             
@@ -198,6 +258,8 @@ class EditCard extends Component {
                                     <Label htmlFor="imageURL">Image URL:</Label>
                                     <Input id="imageURL" name="imageURL" required placeholder="Image URL" value={imageURL} onChange={onChange}/>
                                 </FormGroup>
+
+                                {displayPendulumProps()}
             
                                 <FormGroup>
                                     <Label htmlFor="description">Description:</Label>

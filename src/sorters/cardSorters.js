@@ -14,9 +14,59 @@ export const monsterCardSorter = (list, searchObject) => {
         max_def,
         min_levels,
         max_levels,
+        min_link,
+        max_link,
+        min_pendulum,
+        max_pendulum,
+        pendulumDescription,
         description,
         categoryID
     } = searchObject;
+
+    if (pendulumDescription) {
+        list = list.filter(listItem => {
+            return listItem.categoryIDs.includes("5eccabefb428ef32144ccd54");
+        })
+        list = list.filter(listItem => {
+            return listItem.pendulumDescription.toLowerCase().includes(pendulumDescription.toLowerCase());
+        })
+    }
+
+    if (min_pendulum) {
+        list = list.filter(listItem => {
+            return listItem.categoryIDs.includes("5eccabefb428ef32144ccd54");
+        })
+        list = list.filter(listItem => {
+            return listItem.pendulumScale >= parseInt(min_pendulum);
+        })
+    }
+
+    if (max_pendulum) {
+        list = list.filter(listItem => {
+            return listItem.categoryIDs.includes("5eccabefb428ef32144ccd54");
+        })
+        list = list.filter(listItem => {
+            return listItem.pendulumScale <= parseInt(max_pendulum);
+        })
+    }
+
+    if (min_link) {
+        list = list.filter(listItem => {
+            return listItem.categoryIDs.includes("5eccabefb428ef32144ccd55");
+        })
+        list = list.filter(listItem => {
+            return listItem.levels >= parseInt(min_link);
+        })
+    }
+
+    if (max_link) {
+        list = list.filter(listItem => {
+            return listItem.categoryIDs.includes("5eccabefb428ef32144ccd55");
+        })
+        list = list.filter(listItem => {
+            return listItem.levels <= parseInt(max_link);
+        })
+    }
 
     if (description) {
         list = list.filter(listItem => {
@@ -134,6 +184,34 @@ export const alphabeticalOrderSorter = (list, aphabeticalOrder) => {
 
     if (aphabeticalOrder === "Level - (Low to High)") {
         list = list.sort((a, b) => a.levels - b.levels)
+    }
+
+    if (aphabeticalOrder === "Link - (High to Low)") {
+        list = list.filter(listItem => {
+            return listItem.categoryIDs.includes("5eccabefb428ef32144ccd55");
+        })
+        list = list.sort((a, b) => b.levels - a.levels)
+    }
+
+    if (aphabeticalOrder === "Link - (Low to High)") {
+        list = list.filter(listItem => {
+            return listItem.categoryIDs.includes("5eccabefb428ef32144ccd55");
+        })
+        list = list.sort((a, b) => a.levels - b.levels)
+    }
+
+    if (aphabeticalOrder === "Pendulum Scale - (High to Low)") {
+        list = list.filter(listItem => {
+            return listItem.categoryIDs.includes("5eccabefb428ef32144ccd54");
+        })
+        list = list.sort((a, b) => b.pendulumScale - a.pendulumScale)
+    }
+
+    if (aphabeticalOrder === "Pendulum Scale - (Low to High)") {
+        list = list.filter(listItem => {
+            return listItem.categoryIDs.includes("5eccabefb428ef32144ccd54");
+        })
+        list = list.sort((a, b) => a.pendulumScale - b.pendulumScale)
     }
 
     if (aphabeticalOrder === "ATK - (High to Low)") {

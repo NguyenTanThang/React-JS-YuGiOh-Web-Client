@@ -28,7 +28,12 @@ class MonsterCardSearchEngine extends Component {
         max_def: "",
         min_levels: "",
         max_levels: "",
+        min_link: "",
+        max_link: "",
+        min_pendulum: "",
+        max_pendulum: "",
         description: "",
+        pendulumDescription: "",
         aphabeticalOrder: "A - Z"
     }
 
@@ -62,16 +67,21 @@ class MonsterCardSearchEngine extends Component {
     if (isSearchObjectEmpty()){
         this.setState({
             searched_name: "",
+            categoryID: "",
             typeID: "",
             attributeID: "",
-            categoryID: "",
             min_atk: "",
             max_atk: "",
             min_def: "",
             max_def: "",
             min_levels: "",
             max_levels: "",
-            description: ""
+            min_link: "",
+            max_link: "",
+            min_pendulum: "",
+            max_pendulum: "",
+            description: "",
+            pendulumDescription: "",
         })
     }
 
@@ -87,7 +97,7 @@ class MonsterCardSearchEngine extends Component {
 }
 
 displayAphabeticalOrder = () => {
-    const sortCriteria = ["A - Z", "Z - A", "Level - (High to Low)", "Level - (Low to High)", "ATK - (High to Low)", "ATK - (Low to High)", "DEF - (High to Low)", "DEF - (Low to High)", "By Attribute", "By Type", "By Category"]
+    const sortCriteria = ["A - Z", "Z - A", "Level - (High to Low)", "Level - (Low to High)", "ATK - (High to Low)", "ATK - (Low to High)", "DEF - (High to Low)", "DEF - (Low to High)", "By Attribute", "By Type", "By Category", "Link - (High to Low)", "Link - (Low to High)", "Pendulum Scale - (High to Low)", "Pendulum Scale - (Low to High)"]
     
     return (
         <>
@@ -101,11 +111,45 @@ displayAphabeticalOrder = () => {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const {searched_name, typeID, attributeID, categoryID, min_atk, max_atk, min_def, max_def, min_levels, max_levels, description} = this.state;
-        if (max_atk < min_atk || max_def < min_def || min_levels > max_levels) {
+        const {
+            searched_name,
+            typeID,
+            attributeID,
+            min_atk,
+            max_atk,
+            min_def,
+            max_def,
+            min_levels,
+            max_levels,
+            min_link,
+            max_link,
+            min_pendulum,
+            max_pendulum,
+            pendulumDescription,
+            description,
+            categoryID
+        } = this.state;
+        if (max_atk < min_atk || max_def < min_def || min_levels > max_levels || min_link > max_link || min_pendulum > max_pendulum) {
             console.log("Error")
         }
-        this.props.onSearch({searched_name, typeID, attributeID,  min_atk, max_atk, min_def, max_def, min_levels, max_levels, description, categoryID})
+        this.props.onSearch({
+            searched_name,
+            typeID,
+            attributeID,
+            min_atk,
+            max_atk,
+            min_def,
+            max_def,
+            min_levels,
+            max_levels,
+            min_link,
+            max_link,
+            min_pendulum,
+            max_pendulum,
+            pendulumDescription,
+            description,
+            categoryID
+        })
         this.setState({
             modal: false
         })
@@ -116,16 +160,21 @@ displayAphabeticalOrder = () => {
         this.props.onSearch({})
         this.setState({
             searched_name: "",
+            categoryID: "",
             typeID: "",
             attributeID: "",
-            categoryID: "",
             min_atk: "",
             max_atk: "",
             min_def: "",
             max_def: "",
             min_levels: "",
             max_levels: "",
-            description: ""
+            min_link: "",
+            max_link: "",
+            min_pendulum: "",
+            max_pendulum: "",
+            description: "",
+            pendulumDescription: "",
         })
     }
 
@@ -169,7 +218,7 @@ render(){
         setAlphabeticalOrder
       } = this.props;
       const {toggle, onChange, onSubmit, displayTypeOptions, displayAttributeOptions, onReset, displayCategoryOptions, displayAphabeticalOrder} = this;
-      const {modal, searched_name, typeID, attributeID, min_atk, max_atk, min_def, max_def, min_levels, max_levels, description, categoryID, aphabeticalOrder} = this.state;
+      const {modal, searched_name, typeID, attributeID, min_atk, max_atk, min_def, max_def, min_levels, max_levels, description, categoryID, aphabeticalOrder, min_link, max_link, min_pendulum, max_pendulum, pendulumDescription} = this.state;
 
 
       return (
@@ -258,10 +307,38 @@ render(){
               </div>
           </FormGroup>
 
+          <FormGroup className="row">
+                <div className="col-lg-6 col-md-12 col-sm-12">
+                    <Label htmlFor="min_link">Min Link:</Label>
+                    <Input type="number" id="min_link" name="min_link" placeholder="Min Link" value={min_link} onChange={onChange}/>
+                </div>
+
+                <div className="col-lg-6 col-md-12 col-sm-12">
+                    <Label htmlFor="max_link">Max Link:</Label>
+                    <Input type="number" id="max_link" name="max_link" placeholder="Max Link" value={max_link} onChange={onChange}/>
+                </div>
+            </FormGroup>
+
+            <FormGroup className="row">
+                <div className="col-lg-6 col-md-12 col-sm-12">
+                    <Label htmlFor="min_pendulum">Min Pendulum:</Label>
+                    <Input type="number" id="min_pendulum" name="min_pendulum" placeholder="Min Pendulum" value={min_pendulum} onChange={onChange}/>
+                </div>
+
+                <div className="col-lg-6 col-md-12 col-sm-12">
+                    <Label htmlFor="max_pendulum">Max Pendulum:</Label>
+                    <Input type="number" id="max_pendulum" name="max_pendulum" placeholder="Max Pendulum" value={max_pendulum} onChange={onChange}/>
+                </div>
+            </FormGroup>
 
           <FormGroup>
               <Label htmlFor="description">Card Text:</Label>
               <textarea id="description" name="description" placeholder="Card Text" value={description} onChange={onChange} className="form-control" rows="5"></textarea>
+          </FormGroup>
+
+          <FormGroup>
+              <Label htmlFor="pendulumDescription">Pendulum Description:</Label>
+              <textarea id="pendulumDescription" name="pendulumDescription" placeholder="Pendulum Description" value={pendulumDescription} onChange={onChange} className="form-control" rows="5"></textarea>
           </FormGroup>
 
                 <FormGroup>

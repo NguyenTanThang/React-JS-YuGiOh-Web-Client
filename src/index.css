@@ -550,6 +550,20 @@ body {
   height: 250px;
 }
 
+.pendulum-box li:first-child{
+  flex: 15%;
+  padding-top: 30px;
+}
+
+.pendulum-box li:last-child {
+  flex: 85%;
+}
+
+.pendulum-box li:first-child img {
+  width: 30px;
+  margin-right: 10px;
+}
+
 @media (min-width: 768px) and (max-width: 1024px) {
   .login-container {
     width: 60%;
@@ -557,6 +571,8 @@ body {
 }
 
 @media (min-width: 320px) and (max-width: 1024px) {
+
+
   .search-engine-box .form-group {
     margin-left: 0;
     width: 100%;
@@ -645,6 +661,16 @@ body {
 
   .card-item img {
     text-align: center;
+  }
+
+  .pendulum-box li{
+    flex: 100% !important;
+    padding-top: 0;
+  }
+
+  .pendulum-box li:first-child{
+    padding-top: 10px;
+    border-bottom: none;
   }
 }
 

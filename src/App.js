@@ -19,6 +19,7 @@ import AddMonsterCardPage from "./pages/AddMonsterCardPage";
 import SpellCardList from "./components/SpellCards/SpellCardList";
 import TrapCardList from "./components/TrapCards/TrapCardList";
 import DeckDetails from "./components/Decks/DeckDetails";
+import TinyTextEditor from "./components/Partials/TinyTextEditor";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
           <Route path="/blogs/add" component={AddBlog} />
           <Route path="/decks/details/:deckID" component={DeckDetails} />
           <Route path="/blogs/details/:blogID" component={BlogDetails} />
+          <Route path="/test-the-editor" component={TinyTextEditor} />
         </Switch>
         <Footer/>
       </Router>

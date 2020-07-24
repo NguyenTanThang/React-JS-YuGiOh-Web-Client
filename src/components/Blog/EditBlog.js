@@ -6,8 +6,7 @@ import {connect} from "react-redux";
 import {
     editBlog
 } from "../../actions/blogActions";
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from "ckeditor5-custom-build-reach";
+import TinyTextEditor from "../Partials/TinyTextEditor";
 
 class EditBlog extends Component {
   
@@ -48,11 +47,17 @@ class EditBlog extends Component {
         })
     }
 
+    onContentChange = (content) => {
+        this.setState({
+            content
+        })
+    }
+
 render(){
     const {
         className
       } = this.props;
-      const {toggle, onChange, onSubmit} = this;
+      const {toggle, onChange, onSubmit, onContentChange} = this;
       const {modal, title, content, thumbImageURL} = this.state;
 
       return (
@@ -75,21 +80,7 @@ render(){
 
                 <FormGroup>
                         <Label htmlFor="content">Description:</Label>
-                        <CKEditor
-                            id="content" name="content" required
-                            placeholder="Content"
-                            editor={ ClassicEditor }
-                            data={content}
-                            onInit={ editor => {
-                                // You can store the "editor" and use when it is needed.
-                            } }
-                            onChange={ ( event, editor ) => {
-                                const textdata = editor.getData();
-                                this.setState({
-                                    content: textdata
-                                })
-                            } }
-                        />
+                        <TinyTextEditor onContentChange={onContentChange} content={content}/>
                     </FormGroup>
     
                 <FormGroup>

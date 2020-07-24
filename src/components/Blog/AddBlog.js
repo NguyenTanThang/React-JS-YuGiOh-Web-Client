@@ -6,9 +6,8 @@ import {connect} from "react-redux";
 import {
     addBlog
 } from "../../actions/blogActions";
-import CKEditor from '@ckeditor/ckeditor5-react';
 import Header from "../Partials/Header";
-import ClassicEditor from "ckeditor5-custom-build-reach";
+import TinyTextEditor from "../Partials/TinyTextEditor";
 import {Link} from "react-router-dom"
 
 class AddBlog extends Component {
@@ -22,6 +21,12 @@ class AddBlog extends Component {
     onChange = (e) => {
         this.setState({
             [e.target.id]: e.target.value
+        })
+    }
+
+    onContentChange = (content) => {
+        this.setState({
+            content
         })
     }
 
@@ -40,7 +45,7 @@ render(){
     const {
         className
       } = this.props;
-      const {onChange, onSubmit} = this;
+      const {onChange, onSubmit, onContentChange} = this;
       const {title, content, thumbImageURL} = this.state;
 
       return (
@@ -63,25 +68,7 @@ render(){
 
                 <FormGroup>
                         <Label htmlFor="content">Content:</Label>
-                        <CKEditor
-                            style={{height: "500px"}}
-                            id="content" name="content" required
-                            placeholder="Content"
-                            editor={ 
-                                ClassicEditor
-                             }
-                            data={content}
-                            onInit={ editor => {
-                                // You can store the "editor" and use when it is needed.
-                                console.log(editor);
-                            } }
-                            onChange={ ( event, editor ) => {
-                                const textdata = editor.getData();
-                                this.setState({
-                                    content: textdata
-                                })
-                            } }
-                        />
+                        <TinyTextEditor onContentChange={onContentChange} content={content}/>
                     </FormGroup>
     
                 <FormGroup>

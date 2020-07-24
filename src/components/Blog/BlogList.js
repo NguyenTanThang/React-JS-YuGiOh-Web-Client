@@ -63,9 +63,9 @@ class BlogList extends Component {
         const {displayUtilsBox} = this;
         let currentBlogs = blogs;
 
-        let pageObject = paginate(currentBlogs.length, currentPage, 5, 3)
+        let pageObject = paginate(currentBlogs.length, currentPage, 6, 3)
         if (pageObject.totalPages <= 6){
-            pageObject = paginate(currentBlogs.length, currentPage, 5, 6)
+            pageObject = paginate(currentBlogs.length, currentPage, 6, 6)
         }
 
         currentBlogs = currentBlogs.slice(pageObject.startIndex, pageObject.endIndex + 1);

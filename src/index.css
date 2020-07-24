@@ -603,7 +603,7 @@ body {
 }
 
 .blog-content-html img {
-  width: auto;
+  width: 70%;
   display: block;
   margin-left: auto;
   margin-right: auto;

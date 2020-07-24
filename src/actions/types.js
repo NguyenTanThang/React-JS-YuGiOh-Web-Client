@@ -47,3 +47,10 @@ export const REMOVE_SPELL_CARD_OF_DECK = "REMOVE_SPELL_CARD_OF_DECK";
 export const REMOVE_TRAP_CARD_OF_DECK = "REMOVE_TRAP_CARD_OF_DECK";
 export const EDIT_DECK = "EDIT_DECK";
 export const DELETE_DECK = "DELETE_DECK";
+
+export const GET_ALL_BLOGS = "GET_ALL_BLOGS";
+export const GET_BLOGS_BY_USER_ID = "GET_BLOGS_BY_USER_ID";
+export const GET_BLOG_BY_ID = "GET_BLOG_BY_ID";
+export const ADD_BLOG = "ADD_BLOG";
+export const EDIT_BLOG = "EDIT_BLOG";
+export const DELETE_BLOG = "DELETE_BLOG";

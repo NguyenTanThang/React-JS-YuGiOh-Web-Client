@@ -3,6 +3,7 @@ import spellCardReducer from "./spellCardReducer";
 import trapCardReducer from "./trapCardReducer";
 import userReducer from "./userReducer";
 import deckReducer from "./deckReducer";
+import blogReducer from "./blogReducer";
 import loadingReducer from "./loadingReducer";
 import errorReducer from "./errorReducer";
 import {combineReducers} from "redux";
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     userReducer,
     deckReducer,
     loadingReducer,
-    errorReducer
+    errorReducer,
+    blogReducer
 })
 
 export default rootReducer;

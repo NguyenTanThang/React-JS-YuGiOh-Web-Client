@@ -41,6 +41,7 @@ class ChangePassword extends Component {
         const {oldPassword, newPassword} = this.state;
 
         return (
+            <div className="page-speard">
             <div className="login-container">
         
                 <h2 className="text-center">Change Password</h2>
@@ -67,6 +68,7 @@ class ChangePassword extends Component {
                     </FormGroup>
 
                 </Form>
+            </div>
             </div>
         )
     }

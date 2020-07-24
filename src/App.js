@@ -9,6 +9,10 @@ import Login from "./components/User/Login";
 import ChangePassword from "./components/User/ChangePassword";
 import Profile from "./components/User/Profile";
 import AllDecks from "./components/Decks/AllDecks";
+import AddBlog from "./components/Blog/AddBlog";
+import BlogDetails from "./components/Blog/BlogDetails";
+import AllBlogPage from "./pages/AllBlogPage";
+import UserBlogPage from "./pages/UserBlogPage";
 import Logout from "./components/User/Logout";
 import CardList from "./components/Cards/CardList";
 import AddMonsterCardPage from "./pages/AddMonsterCardPage";
@@ -33,7 +37,11 @@ function App() {
           <Route path="/users/logout" component={Logout} />
           <Route path="/profile" component={Profile} />
           <Route path="/decks/all" component={AllDecks} />
+          <Route path="/blogs/user/:userID" component={UserBlogPage} />
+          <Route path="/blogs/all" component={AllBlogPage} />
+          <Route path="/blogs/add" component={AddBlog} />
           <Route path="/decks/details/:deckID" component={DeckDetails} />
+          <Route path="/blogs/details/:blogID" component={BlogDetails} />
         </Switch>
         <Footer/>
       </Router>

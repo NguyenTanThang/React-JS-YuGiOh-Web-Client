@@ -37,6 +37,7 @@ class Signup extends Component {
         const {username, email, password} = this.state;
 
         return (
+            <div className="page-speard">
             <div className="login-container">
                 <h2 className="text-center">SignUp</h2>
 
@@ -69,6 +70,7 @@ class Signup extends Component {
                     </FormGroup>
 
                 </Form>
+                </div>
                 </div>
         )
     }

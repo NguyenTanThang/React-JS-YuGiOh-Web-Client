@@ -68,6 +68,11 @@ const Navigator = (props) => {
                 closeTheNav()
               }}>Trap Cards</Link>
             </NavItem>
+            <NavItem>
+              <Link className="nav-link" to="/blogs/all" onClick={e => {
+                closeTheNav()
+              }}>Blogs</Link>
+            </NavItem>
             {displayNavItems()}
           </Nav>
         </Collapse>

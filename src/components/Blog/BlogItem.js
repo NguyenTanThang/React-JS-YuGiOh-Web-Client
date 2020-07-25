@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {connect} from "react-redux";
 import {dateParserWithMonth_ISODate} from "../../utils/dateParser";
 import {Link} from "react-router-dom";
-import EditBlog from "./EditBlog";
 import {
     getUserByID
 } from "../../fetchers/userFetchers";
@@ -35,7 +34,7 @@ class BlogItem extends Component {
         if (userID === blogUserID){
             return (
                 <div className="item-utils-box" style={{marginTop: "10px"}}>
-                    <EditBlog blogItem={this.props.blogItem} />
+                    <Link to={`/blogs/edit/${this.props.blogItem._id}`} className="btn btn-warning">Edit</Link>
                 </div>
             )
         } else {

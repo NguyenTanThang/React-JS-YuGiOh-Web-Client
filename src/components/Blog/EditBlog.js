@@ -1,35 +1,37 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 
 import React, { Component } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import {connect} from "react-redux";
 import {
     editBlog
 } from "../../actions/blogActions";
+import {
+    getBlogByID
+} from "../../fetchers/blogFetchers";
 import TinyTextEditor from "../Partials/TinyTextEditor";
+import Header from "../Partials/Header";
+import Loading from "../Partials/Loading";
+import {Link} from "react-router-dom"
 
 class EditBlog extends Component {
   
     state = {
-        modal: false,
         title: "",
         thumbImageURL: "",
-        content: ""
+        content: "",
+        loading: true
     }
 
-    componentDidMount() {
-        const {title, content, thumbImageURL} = this.props.blogItem;
+    async componentDidMount() {
+        const blogID = this.props.match.params.blogID;
+        const blogItem = await getBlogByID(blogID);
+        const {title, content, thumbImageURL} = blogItem.blog;
 
         this.setState({
-            title, content, thumbImageURL
+            title, content, thumbImageURL, loading: false
         })
     }
-
-  toggle = () => {
-      this.setState({
-        modal: !this.state.modal
-      })
-  }
 
     onChange = (e) => {
         this.setState({
@@ -39,12 +41,9 @@ class EditBlog extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const {_id} = this.props.blogItem;
+        const blogID = this.props.match.params.blogID;
         const {title, content, thumbImageURL} = this.state;
-        this.props.editBlog(_id, {title, content, thumbImageURL});
-        this.setState({
-            modal: false
-        })
+        this.props.editBlog(blogID, {title, content, thumbImageURL});
     }
 
     onContentChange = (content) => {
@@ -57,43 +56,43 @@ render(){
     const {
         className
       } = this.props;
-      const {toggle, onChange, onSubmit, onContentChange} = this;
-      const {modal, title, content, thumbImageURL} = this.state;
+      const {onChange, onSubmit, onContentChange} = this;
+      const {title, content, thumbImageURL, loading} = this.state;
+
+      if (loading) {
+          return <Loading/>
+      }
 
       return (
-        <div>
-          <Button color="warning" onClick={toggle}>Edit</Button>
-          <Modal isOpen={modal} toggle={toggle} className={className}>
-            <ModalHeader toggle={toggle}>Edit Blog</ModalHeader>
-            <ModalBody>
-              <Form onSubmit={onSubmit}>
+          <div>
+        <Header imageURL={thumbImageURL} headerText={"EDIT BLOG"}/>
 
-                <FormGroup>
-                    <Label htmlFor="title">Title:</Label>
-                    <Input id="title" name="title" required placeholder="Title" value={title} onChange={onChange}/>
+          <div className="container section-padding">
+          <Form onSubmit={onSubmit}>
+
+            <FormGroup>
+                <Label htmlFor="title">Title:</Label>
+                <Input id="title" name="title" required placeholder="Title" value={title} onChange={onChange}/>
+            </FormGroup>
+
+            <FormGroup>
+                <Label htmlFor="thumbImageURL">Thumbnail Image URL:</Label>
+                <Input id="thumbImageURL" name="thumbImageURL" required placeholder="Thumbnail Image URL" value={thumbImageURL} onChange={onChange}/>
+            </FormGroup>
+
+            <FormGroup>
+                    <Label htmlFor="content">Content:</Label>
+                    <TinyTextEditor onContentChange={onContentChange} content={content}/>
                 </FormGroup>
 
-                <FormGroup>
-                    <Label htmlFor="thumbImageURL">Thumbnail Image URL:</Label>
-                    <Input id="thumbImageURL" name="thumbImageURL" required placeholder="Thumbnail Image URL" value={thumbImageURL} onChange={onChange}/>
-                </FormGroup>
-
-                <FormGroup>
-                        <Label htmlFor="content">Description:</Label>
-                        <TinyTextEditor onContentChange={onContentChange} content={content}/>
-                    </FormGroup>
-    
-                <FormGroup>
-                    <Button type="submit" color="warning" block>Update</Button>
-                </FormGroup>
-              
-              </Form>
-            </ModalBody>
-            <ModalFooter>
-              <Button color="secondary" onClick={toggle}>Cancel</Button>
-            </ModalFooter>
-          </Modal>
-        </div>
+            <FormGroup>
+                <Button type="submit" color="warning" block>Update</Button>
+                <Link to="/blogs/all" className="btn btn-block btn-info">Back</Link>
+            </FormGroup>
+          
+          </Form>
+    </div>
+          </div>
       );
 }
   

@@ -10,6 +10,7 @@ import ChangePassword from "./components/User/ChangePassword";
 import Profile from "./components/User/Profile";
 import AllDecks from "./components/Decks/AllDecks";
 import AddBlog from "./components/Blog/AddBlog";
+import EditBlog from "./components/Blog/EditBlog";
 import BlogDetails from "./components/Blog/BlogDetails";
 import AllBlogPage from "./pages/AllBlogPage";
 import UserBlogPage from "./pages/UserBlogPage";
@@ -41,6 +42,7 @@ function App() {
           <Route path="/blogs/user/:userID" component={UserBlogPage} />
           <Route path="/blogs/all" component={AllBlogPage} />
           <Route path="/blogs/add" component={AddBlog} />
+          <Route path="/blogs/edit/:blogID" component={EditBlog} />
           <Route path="/decks/details/:deckID" component={DeckDetails} />
           <Route path="/blogs/details/:blogID" component={BlogDetails} />
           <Route path="/test-the-editor" component={TinyTextEditor} />

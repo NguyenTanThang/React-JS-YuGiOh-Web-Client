@@ -66,27 +66,12 @@ class AssignMonsterToCategory extends Component {
 
   displayCategoryOptions = () => {
     let categoryList = this.state.categoryList;
-    const cards = this.props.cards;
-    const cardID = this.props.cardItem.cardID;
+    const card = this.props.cardItem;
 
-    if (cardID) {
-        const card = cards.filter(cardItem => {
-            return cardItem._id === cardID;
-        })[0];
-
-        categoryList.filter(categoryItem => {
-            return !card.categoryIDs.includes(categoryItem._id);
-        })
+    categoryList = categoryList.filter(categoryItem => {
+        return !card.categoryIDs.includes(categoryItem._id);
+    })
         
-        return categoryList.map(categoryItem => {
-                return (
-                    <option key={categoryItem._id} value={categoryItem._id}>
-                        {categoryItem.name}
-                    </option>
-                )
-        })
-    }
-
     return categoryList.map(categoryItem => {
         return (
             <option key={categoryItem._id} value={categoryItem._id}>
@@ -94,6 +79,16 @@ class AssignMonsterToCategory extends Component {
             </option>
         )
     })
+
+    /*
+        return categoryList.map(categoryItem => {
+            return (
+                <option key={categoryItem._id} value={categoryItem._id}>
+                    {categoryItem.name}
+                </option>
+            )
+        })
+    */
   }
 
 render(){
